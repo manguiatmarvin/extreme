@@ -1,0 +1,65 @@
+ANCONV
+
+avconv -i annie.avi -c:v libx264  -s 320x240  -c:a libmp3lame -b:a 32k anniesh.mp4  -y  -->this works great!
+
+**with watermark option
+avconv -i annie.avi -i logo.png -filter_complex overlay="main_w-overlay_w-10:10" -c:v libx264  -s 320x240  -c:a libmp3lame -b:a 32k anniesh.mp4  -y
+
+36.1 64kb sound quality
+31.4 32kb sounb quality
+
+
+FFMPEG Convertion Notes:
+
+ffmpeg -i output.mp4 -s 320x240 -b:v 128k -vcodec mpeg1video -b:a 8k  compressed320x240-128k-ab8kNEW.mp4
+-b:v video bitrate
+-b:a audio bitrate
+
+with watermark Put overlay at the center
+ffmpeg -i output.mp4 -i zf2logo.png -filter_complex overlay="(main_w/2)-(overlay_w/2):(main_h/2)-(overlay_h)/2" -s 320x240 -b:v 128k -vcodec mpeg1video -b:a 8k  compressed320x240-128k-ab8kNEW.mp4
+
+Draw the overlay (logo )at 10 pixels from the bottom right corner of the main video
+ffmpeg -i output.mp4 -i logo.png -filter_complex overlay="main_w-overlay_w-10:main_h-overlay_h-10" -s 320x240 -b:v 128k -vcodec mpeg1video -b:a 8k overlayed.mp4
+
+top right
+ffmpeg -i output.mp4 -i logo.png -filter_complex overlay="main_w-overlay_w-10:10" -s 320x240 -b:v 128k -vcodec mpeg1video -b:a 8k overlayedtr.mp4
+
+
+
+
+ffmpeg – watermark positions
+October 21, 2013ffmpeg
+This are the command lines that I use to add the watermark picture named watermark.png on the video named source.avi and export to output.flv.
+
+The 10 values are the paddings!
+
+Top left
+ffmpeg –i source.avi -vf "movie=watermark.png [watermark]; [in][watermark] overlay=10:10 [out]" output.flv
+
+Top right
+ffmpeg –i source.avi -vf "movie=watermark.png [watermark]; [in][watermark] overlay=main_w-overlay_w-10:10 [out]" output.flv
+
+Bottom left
+ffmpeg –i source.avi -vf "movie=watermark.png [watermark]; [in][watermark] overlay=10:main_h-overlay_h-10 [out]" output.flv
+
+Bottom right
+ffmpeg –i source.avi -vf "movie=watermark.png [watermark]; [in][watermark] overlay=main_w-overlay_w-10:main_h-overlay_h-10 [out]" output.flv
+
+Center?
+ffmpeg –i source.avi -vf “movie=watermark.png [watermark]; [in][watermark] overlay=main_w/2-overlay_w/2:main_h/2-overlay_h/2 [out]” output.flv
+ Change the audio volume
+
+You can use the volume filter to alter the volume of a media file using FFmpeg. This command will half the volume of the audio file.
+
+ffmpeg -i input.wav -af 'volume=0.5' output.wav
+
+
+split videos into 10 mins chunks
+$ ffmpeg -i source-file.foo -ss 0 -t 600 first-10-min.m4v
+$ ffmpeg -i source-file.foo -ss 600 -t 600 second-10-min.m4v
+$ ffmpeg -i source-file.foo -ss 1200 -t 600 third-10-min.m4v
+
+
+$ ffmpeg -i source.m4v -ss 0 -t 593.3 -vcodec copy -acodec copy part1.m4v
+$ ffmpeg -i source.m4v -ss 593.3 -t 551.64 -vcodec copy -acodec copy part2.m4v
+$ ffmpeg -i source.m4v -ss 1144.94 -t 581.25 -vcodec copy -acodec copy part3.m4v
