@@ -1,6 +1,1 @@
-Options +FollowSymLinks -MultiViews
-RewriteEngine On
-RewriteBase /crm/
 
-RewriteCond %{REQUEST_URI} !/public [NC]
-RewriteRule ^(.*)$ public/$1 [L]

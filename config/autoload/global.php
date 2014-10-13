@@ -41,34 +41,6 @@ return array (
 												'resource' => 'mostviewed-videos',
 												'show_in_menu' => true
 										),
-										array (
-												'label' => 'Celebrities',
-												'route' => 'videos',
-												'action' => 'mostviewed-videos',
-												'resource' => 'mostviewed-videos',
-												'show_in_menu' => true
-										),
-										array (
-												'label' => 'Asians',
-												'route' => 'videos',
-												'action' => 'mostviewed-videos',
-												'resource' => 'mostviewed-videos',
-												'show_in_menu' => true
-										),
-										array (
-												'label' => 'Hardcore',
-												'route' => 'videos',
-												'action' => 'mostviewed-videos',
-												'resource' => 'mostviewed-videos',
-												'show_in_menu' => true
-										),
-										array (
-												'label' => 'Scandals',
-												'route' => 'videos',
-												'action' => 'mostviewed-videos',
-												'resource' => 'mostviewed-videos',
-												'show_in_menu' => true
-										),
 										
 								)
 								 
