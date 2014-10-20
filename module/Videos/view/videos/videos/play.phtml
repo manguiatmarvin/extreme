@@ -1,3 +1,8 @@
+<?php 
+$title = 'Now Playing:: '.$this->playVideo->title;
+$this->headTitle($this->playVideo->title);
+$video = $this->playVideo;
+?>
 <div class="row">
 	<!-- Left col -->
 	<section class="col-lg-7">
@@ -6,14 +11,12 @@
 
 			<div class="panel-default">
 				<div class="panel-heading">
-					<i class="fa fa-youtube-play"></i> Newest Videos
+				<h5><i class="fa fa-youtube-play"></i> <?php echo $this->escapeHtml($title); ?></h5>
 				</div>
 				<div class="panel-body">
 					<div class="box-body">
-					<iframe width="560" height="315" src="//www.youtube.com/embed/b1DzRb4DHGw" frameborder="0" allowfullscreen></iframe>
-					
-					
-
+			
+                    <?php echo $video->embed_code;?>
 
 					
 					</div>
