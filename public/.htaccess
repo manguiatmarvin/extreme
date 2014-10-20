@@ -16,3 +16,8 @@ RewriteRule ^.*$ - [NC,L]
 RewriteCond %{REQUEST_URI}::$1 ^(/.+)(.+)::\2$
 RewriteRule ^(.*) - [E=BASE:%1]
 RewriteRule ^(.*)$ %{ENV:BASE}index.php [NC,L]
+#disallow hot linking 
+RewriteCond %{HTTP_REFERER} !^$
+RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?marvinm.com [NC]
+RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?173.45.66.115 [NC]
+RewriteRule \.(jpg|jpeg|png|gif|mp4|flv|avi|)$ - [NC,F,L]

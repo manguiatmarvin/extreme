@@ -10,15 +10,18 @@ class VideosController extends AbstractActionController {
 	protected $videosTable;
 	
 	public function indexAction() {
-     return new ViewModel();
+     return new ViewModel(array('videos'=>$this->getVideosTable()->getNewestVideos(),));
 	}
 
+	public function playAction(){
+		
+		return new ViewModel();
+	}
 	
 	public function latestAction(){
 		return new ViewModel();
 	}
 	
-
 	
 	public function getVideosTable(){
 	
