@@ -17,6 +17,7 @@ class Videos implements InputFilterAwareInterface
 	public $thumbnail;
 	public $uploaded;
 	public $modified;
+	public $views;
 	
 	//input filter
 	private $inputFilter;
@@ -32,6 +33,7 @@ class Videos implements InputFilterAwareInterface
 		$this->thumbnail = (!empty($data['thumbnail'])) ? $data['thumbnail'] : null;
 		$this->uploaded = (!empty($data['uploaded'])) ? $data['uploaded'] : null;
 		$this->modified = (!empty($data['modified'])) ? $data['modified'] : null;
+		$this->views = (!empty($data['views'])) ? $data['views'] : null;
 		
 	}
 	

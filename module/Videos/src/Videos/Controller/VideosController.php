@@ -24,6 +24,7 @@ class VideosController extends AbstractActionController {
 		// if it cannot be found, in which case go to the index page.
 		try {
 			$videoToplay = $this->getVideosTable()->getVideoSigle($id);
+			$this->getVideosTable()->UpdateVideoViews($videoToplay->id,$videoToplay->views);
 			//TODO: get related videos using $videoToplay->title as search key;
 		
 		}

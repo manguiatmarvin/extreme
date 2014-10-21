@@ -41,6 +41,14 @@ class VideosTable {
         return $row;
 	}
 	
+	public function UpdateVideoViews($id,$currentViews){
+		if($currentViews=="" && $currentViews=null && $currentViews){
+			$currentViews = 0;
+		}
+		$data = array('views'=>$currentViews+1);
+		$this->tableGateway->update($data,array('id'=>$id));
+		
+	}
 	
 	public function getNewestVideos(){
 		$select = new Select('video');
