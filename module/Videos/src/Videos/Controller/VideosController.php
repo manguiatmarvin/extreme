@@ -5,8 +5,6 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use MarvinFileUploadUtils\FileUploadUtils;
 
-
-
 class VideosController extends AbstractActionController {
 	protected $videosTable;
 	
@@ -25,16 +23,17 @@ class VideosController extends AbstractActionController {
 		// if it cannot be found, in which case go to the index page.
 		try {
 			$videoToplay = $this->getVideosTable()->getVideoSigle($id);
+			$relatedVideos = $this->getVideosTable()->getRelatedVideos($videoToplay->title);
 			//$this->getVideosTable()->UpdateVideoViews($videoToplay->id,$videoToplay->views);
-			//TODO: get related videos using $videoToplay->title as search key;
-		
+			
 		}
 		catch (\Exception $ex) {
 			//change this to 404
 			return $this->redirect()->toRoute('videos');
 		}
 		
-		return new ViewModel(array('playVideo'=>$videoToplay));
+		return new ViewModel(array('playVideo'=>$videoToplay,
+		                           'relatedVideos'=>$relatedVideos));
 	}
 	
 	public function streamVideoAction(){
@@ -69,8 +68,8 @@ class VideosController extends AbstractActionController {
 		if(!is_file($fileName)){
 			return 	$response->setStatusCode(404);
 		}
+		
 		$outFile = uniqid();
-	
 		$response->setStatusCode(200);
 		$headers = new \Zend\Http\Headers();
 		$headers->addHeaderLine('Content-Type',$fileUtils->file_src_mime)

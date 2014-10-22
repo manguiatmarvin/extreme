@@ -66,5 +66,25 @@ class VideosTable {
 		return $paginator;
 	}
 	
+	
+	public function getRelatedVideos($videoTitle){
+		$videoTitle = '%'.$videoTitle.'%';
+		$select = new Select('video');
+		$select->where->like('title',$videoTitle);
+		$select->order(array('uploaded'=>'ACS'));
+	
+	
+		$paginatorAdapter = new DbSelect(
+				// our configured select object
+				$select,
+				// the adapter to run it against
+				$this->tableGateway->getAdapter(),
+				// the result set to hydrate
+				new ResultSet()
+		);
+		$paginator = new Paginator($paginatorAdapter);
+		return $paginator;
+	}
+	
 
 }

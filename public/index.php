@@ -4,8 +4,11 @@ define('ROOT_PATH', dirname(__DIR__));
  * Display all errors when APPLICATION_ENV is development.
  */
 if ($_SERVER['APPLICATION_ENV'] == 'development') {
+ date_default_timezone_set('Asia/Manila');
  error_reporting(E_ALL);
  ini_set("display_errors", 1);
+}else{
+	date_default_timezone_set('America/Chicago');
 }
 
 /**
