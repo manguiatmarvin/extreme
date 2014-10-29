@@ -32,11 +32,11 @@ class VideosTable {
 	
 	
 	public function getVideoSigle($id){
+		
 		$rowSet = $this->tableGateway->select(array('id'=>$id));
 		$row = $rowSet->current();
         if(!$row){
         	throw new \Exception('Video id does not exist');
-       
         }
         return $row;
 	}
