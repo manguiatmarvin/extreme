@@ -36,29 +36,6 @@ class VideosController extends AbstractActionController {
 		                           'relatedVideos'=>$relatedVideos));
 	}
 	
-	public function streamVideoAction(){
-		$id = (int) $this->params()->fromRoute('id', 0);
-		if (!$id) {
-			return $this->redirect()->toRoute('videos');
-		}
-		
-		try {
-			$videoToplay = $this->getVideosTable()->getVideoSigle($id);
-			$this->getVideosTable()->UpdateVideoViews($videoToplay->id,$videoToplay->views);
-			//TODO: get related videos using $videoToplay->title as search key;
-		
-		}
-		catch (\Exception $ex) {
-			//change this to 404 or redirect to page that has so many ads
-			//return 	$response->setStatusCode(404);
-			return $this->redirect()->toRoute('videos');
-		}
-		
-		$path = ROOT_PATH.'/data'.$videoToplay->file_path;
-		return $this->streamFile($path);
-	}
-	
-	
 	
 	public function servAction(){
 		$id = (int) $this->params()->fromRoute('id', 0);
