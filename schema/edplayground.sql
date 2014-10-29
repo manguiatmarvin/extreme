@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.10deb1
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Oct 21, 2014 at 03:59 PM
--- Server version: 5.5.38-0ubuntu0.14.04.1-log
--- PHP Version: 5.5.9-1ubuntu4.4
+-- Host: 127.0.0.1
+-- Generation Time: Oct 29, 2014 at 04:38 PM
+-- Server version: 5.6.17
+-- PHP Version: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `edplayground`
+-- Database: `extreme`
 --
 
 -- --------------------------------------------------------
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `video` (
   `desc` text NOT NULL,
   `runtime` varchar(50) NOT NULL,
   `embed_code` text NOT NULL,
-  `file_path` varchar(200) NOT NULL,
+  `video_src` varchar(500) NOT NULL,
   `thumbnail` varchar(255) NOT NULL,
   `uploaded` datetime NOT NULL,
   `modified` datetime NOT NULL,
@@ -82,13 +82,13 @@ CREATE TABLE IF NOT EXISTS `video` (
 -- Dumping data for table `video`
 --
 
-INSERT INTO `video` (`id`, `title`, `desc`, `runtime`, `embed_code`, `file_path`, `thumbnail`, `uploaded`, `modified`, `views`) VALUES
-(1, 'Paul Gilbert & Freddie Nelson - Let It Be (LIVE)', 'Paul Gilbert & Freddie Nelson - Let It Be (LIVE)', '20:10', '<video width="400" controls>\r\n  <source src="/videos/stream-video/1" type="video/mp4">\r\n  Your browser does not support HTML5 video.\r\n</video>', '/videos/2014/10/video_1.mp4', '/img/thumbnails/vids/2014/10/sample320x200.png', '2014-09-23 00:00:00', '2014-09-23 00:00:00', 1023),
-(2, 'Paul Gilbert - Technical Difficulties', 'From licklibrary.com another piece of great music from Racer X.\r\nPerformed by Paul at LIMS ''08.', '30:41', '<iframe width="560" height="315" src="//www.youtube.com/embed/zU_KoxFQd64" frameborder="0" allowfullscreen></iframe>', '/videos/2014/10/video_1.mp4', '/img/thumbnails/vids/2014/10/sample320x200.png', '2014-10-20 00:00:00', '2014-10-20 00:00:00', 46),
-(3, 'Far Beyond The Sun - Yngwie Malmsteen', 'Far Beyond The Sun played by Yngwie Malmsteen', '6:00', '<iframe width="420" height="315" src="//www.youtube.com/embed/eK0rvReE-4c" frameborder="0" allowfullscreen></iframe>', '/videos/2014/10/video_1.mp4', '/img/thumbnails/vids/2014/10/sample320x200-1.png', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 96),
+INSERT INTO `video` (`id`, `title`, `desc`, `runtime`, `embed_code`, `video_src`, `thumbnail`, `uploaded`, `modified`, `views`) VALUES
+(1, 'Paul Gilbert', 'Paul Gilbert & Freddie Nelson - Let It Be (LIVE)', '20:10', '<video width="400" controls>\r\n  <source src="http://xpedler.com/videos/serv/1" type="video/mp4">\r\n  Your browser does not support HTML5 video.\r\n</video>', 'http://173.45.66.115/serv.php?vid=1', '/img/thumbnails/vids/2014/10/sample320x200.png', '2014-10-28 10:24:11', '2014-09-23 00:00:00', 1028),
+(2, 'Paul Gilbert', 'From licklibrary.com another piece ', '30:41', '<iframe width="560" height="315" src="//www.youtube.com/embed/zU_KoxFQd64" frameborder="0" allowfullscreen></iframe>', 'http://173.45.66.115/serv.php?vid=2', '/img/thumbnails/vids/2014/10/sample320x200.png', '2014-02-02 04:10:11', '2014-10-20 00:00:00', 46),
+(3, 'Paul Gilbert', 'Far Beyond The Sun played by Yngwie Malmsteen', '6:00', '<iframe width="420" height="315" src="//www.youtube.com/embed/eK0rvReE-4c" frameborder="0" allowfullscreen></iframe>', '/videos/2014/10/video_1.mp4', '/img/thumbnails/vids/2014/10/sample320x200-1.png', '2014-09-28 04:10:11', '0000-00-00 00:00:00', 96),
 (4, 'YNGWIE MALMSTEEN Live [HD] Black Star', 'YNGWIE MALMSTEEN Live [HD] Black Star', '10:46', '<iframe width="420" height="315" src="//www.youtube.com/embed/QvMKsgVBzMo" frameborder="0" allowfullscreen></iframe>', '/videos/2014/10/video_1.mp4', '/img/thumbnails/vids/2014/10/sample320x200-1.png', '2014-10-20 00:00:00', '2014-10-20 00:00:00', 65),
-(5, 'Steve Vai Tender Surrender full HD', '2009 Where the Wild Things Are DVD', '4:39', '<iframe width="560" height="315" src="//www.youtube.com/embed/_Tp7RHzm9x0" frameborder="0" allowfullscreen></iframe>', '/videos/2014/10/video_1.mp4', '/img/thumbnails/vids/2014/10/sample320x200-3.png', '2014-10-20 00:00:00', '2014-10-20 00:00:00', 12),
-(6, 'Joe Satriani - Always With Me, Always With You (Live 2006)', 'Joe Satriani - Always With Me, Always With You (Live 2006)\r\nLive at The Grove, Anaheim\r\nOff of the "Satriani: Live!" DVD (2006)', '12:50', '<iframe width="560" height="315" src="//www.youtube.com/embed/b1DzRb4DHGw" frameborder="0" allowfullscreen></iframe>', '/videos/2014/10/video_1.mp4', '/img/thumbnails/vids/2014/10/sample320x200-2.png', '2014-10-20 00:00:00', '2014-10-20 00:00:00', 127);
+(5, 'Steve Vai Tender Surrender full HD', '2009 Where the Wild Things Are DVD', '4:39', '<iframe width="560" height="315" src="//www.youtube.com/embed/_Tp7RHzm9x0" frameborder="0" allowfullscreen></iframe>', '/videos/2014/10/video_1.mp4', '/img/thumbnails/vids/2014/10/sample320x200-3.png', '2014-10-22 00:00:00', '2014-10-20 00:00:00', 12),
+(6, 'Joe Satriani - Always With Me, Always With You (Live 2006)', 'Joe Satriani - Always With Me, Always', '12:50', '<iframe width="560" height="315" src="//www.youtube.com/embed/b1DzRb4DHGw" frameborder="0" allowfullscreen></iframe>', '/videos/2014/10/video_1.mp4', '/img/thumbnails/vids/2014/10/sample320x200-2.png', '2014-10-24 04:14:17', '2014-10-20 00:00:00', 127);
 
 -- --------------------------------------------------------
 

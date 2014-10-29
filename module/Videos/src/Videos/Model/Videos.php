@@ -14,11 +14,13 @@ class Videos implements InputFilterAwareInterface
 	public $desc;
 	public $runtime;
 	public $embed_code;
-	public $file_path;
+	public $video_src;
 	public $thumbnail;
 	public $uploaded;
 	public $modified;
 	public $views;
+	public $category;
+	
 	
 	//input filter
 	private $inputFilter;
@@ -31,11 +33,13 @@ class Videos implements InputFilterAwareInterface
 		$this->desc = (!empty($data['desc'])) ? $data['desc'] : null;
 		$this->runtime = (!empty($data['runtime'])) ? $data['runtime'] : null;
 		$this->embed_code = (!empty($data['embed_code'])) ? $data['embed_code'] : null;
-		$this->file_path = (!empty($data['file_path'])) ? $data['file_path'] : null;
+		$this->video_src = (!empty($data['video_src'])) ? $data['video_src'] : null;
 		$this->thumbnail = (!empty($data['thumbnail'])) ? $data['thumbnail'] : null;
 		$this->uploaded = (!empty($data['uploaded'])) ? $data['uploaded'] : null;
 		$this->modified = (!empty($data['modified'])) ? $data['modified'] : null;
 		$this->views = (!empty($data['views'])) ? $data['views'] : null;
+		$this->category = (!empty($data['category'])) ? $data['category'] : null;
+		
 		
 	}
 	
