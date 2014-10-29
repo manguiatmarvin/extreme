@@ -18,7 +18,12 @@ $related = $this->relatedVideos;
 				<div class="panel-body">
 					<div class="box-body">
 						<div class="box">
-                        <?php echo $video->embed_code;?>
+                        <video id="<?php echo  $video->id?>" class="video-js vjs-default-skin" controls
+ preload="auto" width="" height="475" poster="<?php echo $video->thumbnail; ?>"
+ data-setup="{}">
+ <source src="/videos/serv/<?php echo $video->id?>" type='video/mp4'>
+ <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+</video>
 			           </div>
 					
 					
