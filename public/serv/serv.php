@@ -1,11 +1,21 @@
 <?php
 $videoId = $_REQUEST['id'];
+if($videoId==""){
+	echo "Video Not Found";
+	exit;
+}
+
 $content=file_get_contents("http://marvin.extreme.com/videos/getVideoJson/".$videoId);
 $data=json_decode($content);
+
+echo $data->result;
+exit;
+
 if($data->result=="failed"){
 exit;
 //TODO or play a dummy video file 	
 }
+
 $file =  $data->video_path;
 $fp = @fopen($file, 'rb');
 $size   = filesize($file); // File size

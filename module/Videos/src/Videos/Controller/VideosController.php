@@ -38,14 +38,12 @@ class VideosController extends AbstractActionController {
 		                           'relatedVideos'=>$relatedVideos));
 	}
 	
-
-	
 	
     public function getVideoJsonAction(){
     	
     	$id = (int) $this->params()->fromRoute('id', 0);
     	if (!$id) {
-    		return $this->redirect()->toRoute('videos');
+    		return new JsonModel(array('result'=>'failed'));
     	}
     	
     	// Get the Album with the specified id.  An exception is thrown
@@ -56,7 +54,7 @@ class VideosController extends AbstractActionController {
     	}
     	catch (\Exception $ex) {
     		//change this to 404
-    		$result = new JsonModel(array('result'=>'failed'));
+    		return new JsonModel(array('result'=>'failed'));
     	}
     	
     	$result = new JsonModel(array('result'=>'success',
