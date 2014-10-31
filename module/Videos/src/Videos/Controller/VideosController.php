@@ -4,6 +4,8 @@ namespace Videos\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use MarvinFileUploadUtils\FileUploadUtils;
+use Zend\View\Model\JsonModel;
+
 
 class VideosController extends AbstractActionController {
 	protected $videosTable;
@@ -39,7 +41,30 @@ class VideosController extends AbstractActionController {
 
 	
 	
-
+    public function getVideoJsonAction(){
+    	
+    	$id = (int) $this->params()->fromRoute('id', 0);
+    	if (!$id) {
+    		return $this->redirect()->toRoute('videos');
+    	}
+    	
+    	// Get the Album with the specified id.  An exception is thrown
+    	// if it cannot be found, in which case go to the index page.
+    	try {
+    		$videoToplay = $this->getVideosTable()->getVideoSigle($id);
+    	
+    	}
+    	catch (\Exception $ex) {
+    		//change this to 404
+    		$result = new JsonModel(array('result'=>'failed'));
+    	}
+    	
+    	$result = new JsonModel(array('result'=>'success',
+    	                              'video_path'=>$videoToplay->video_path));
+    	
+    	
+     return $result;
+    }
 	
 	public function latestAction(){
 		return new ViewModel();
