@@ -40,4 +40,6 @@ echo "AUTH_TYPE : " . $_SERVER['AUTH_TYPE'] . "<br />";
 echo "PATH_INFO : " . $_SERVER['PATH_INFO'] . "<br />"; 
 echo "ORIG_PATH_INFO : " . $_SERVER['ORIG_PATH_INFO'] . "<br />"; 
 
+
+phpinfo();
 ?> 
