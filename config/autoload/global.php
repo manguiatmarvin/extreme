@@ -41,6 +41,13 @@ return array (
 												'resource' => 'mostviewed-videos',
 												'show_in_menu' => true
 										),
+										array (
+												'label' => 'Categories',
+												'route' => 'videos',
+												'action' => 'video-categories',
+												'resource' => 'video-categories',
+												'show_in_menu' => true
+										),
 										
 								)
 								 

@@ -63,6 +63,15 @@ class VideosController extends AbstractActionController {
     	
      return $result;
     }
+    
+    
+    public function MostViewedVideosAction(){
+    	    return new ViewModel(array('videos'=>$this->getVideosTable()->getMostViewedVideos(),));
+    }
+    
+    public function VideoCategoriesAction(){
+    	return new ViewModel();
+    }
 	
 	public function latestAction(){
 		return new ViewModel();
