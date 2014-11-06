@@ -29,9 +29,7 @@ $(function() {
 	      
 	 });
 	
-	$( "button, input[type='button']" ).addClass( "btn btn-primary" );
 	$('#image-file').addClass( "btn btn-primary" );
-	
 	
 	$('#vplay-add-likes').click(function(e) {
 		e.preventDefault();
@@ -50,14 +48,11 @@ $(function() {
 			  },
 			  dataType:'json'
 			});
-		
-		
 	});
 	
 	$('#vplay-add-dislikes').click(function(e) {
 		e.preventDefault();
 		
-		e.preventDefault();
 		$(this).prop('disabled', true);
 		
 		var _id = $('input:hidden[name=player_video_id]').val();
