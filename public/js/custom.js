@@ -70,7 +70,7 @@ $(function() {
 			  success: function(e){
 				  //alert(e.result);
 				  if(e.result !='failed'){
-					  $('#vplay-add-dislikes').html('<i class="fa  fa-thumbs-up">'+e.result); 
+					  $('#vplay-add-dislikes').html('<i class="fa  fa-thumbs-down">'+e.result); 
 				  }
 			
 			  },
