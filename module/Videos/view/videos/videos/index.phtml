@@ -95,7 +95,7 @@ function dateDiff($time1, $time2, $precision = 6) {
 								<h4><b><?php echo $v->title?></b></h4>
 									<?php echo $v->desc;?>
 									<br/>
-									<b>Category: </b> <?php ?>
+									<b>Category: </b><a href="<?php echo  $this->url('videos',array('action'=>'videos-by-category','id'=>$v->cat_id))?>"><?php echo $v->cat_name?></a>
 									<br/>
 									<b>Views: </b> <?php echo $v->views?>
 									<br/>

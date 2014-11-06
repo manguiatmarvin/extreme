@@ -3,7 +3,6 @@ $title = 'Videos';
 $this->headTitle($title);
 $videos = $this->videos;
 
-
 function dateDiff($time1, $time2, $precision = 6) {
 	// If not numeric then convert texts to unix timestamps
 	if (!is_int($time1)) {
@@ -79,7 +78,7 @@ function dateDiff($time1, $time2, $precision = 6) {
 
 			<div class="panel-default">
 				<div class="panel-heading">
-					<i class="fa fa-youtube-play"></i> Newest Videos
+					<i class="fa fa-youtube-play"></i>Category Videos
 				</div>
 				<div class="panel-body">
 					<div class="box-body">
@@ -95,7 +94,7 @@ function dateDiff($time1, $time2, $precision = 6) {
 								<h4><b><?php echo $v->title?></b></h4>
 									<?php echo $v->desc;?>
 									<br/>
-									<b>Category: </b> <a href="<?php echo  $this->url('videos',array('action'=>'videos-by-category','id'=>$v->cat_id))?>"><?php echo $v->cat_name?></a>
+									<b>Category: </b> <?php echo $v->cat_name?>
 									<br/>
 									<b>Views: </b> <?php echo $v->views?>
 									<br/>

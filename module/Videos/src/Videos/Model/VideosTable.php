@@ -56,7 +56,13 @@ class VideosTable {
 	
 	public function getNewestVideos(){
 		$select = new Select('video');
+		$select->join('category',
+		              'video.category_id = category.id',
+		              array('cat_id'=>'id','cat_name'=>'category_name'),
+		              Select::JOIN_LEFT );
+
 		$select->order(array('uploaded'=>'ACS'));
+		
 		
 		$paginatorAdapter = new DbSelect(
 				// our configured select object
@@ -74,6 +80,10 @@ class VideosTable {
 
 	public function getMostViewedVideos(){
 		$select = new Select('video');
+		$select->join('category',
+		              'video.category_id = category.id',
+		              array('cat_id'=>'id','cat_name'=>'category_name'),
+		              Select::JOIN_LEFT );
 		$select->order(array('views'=>'desc'));
 	
 		$paginatorAdapter = new DbSelect(
@@ -89,10 +99,59 @@ class VideosTable {
 	}
 	
 	public function getVideoCategories(){
+		$select = new Select('video');
+		$select->columns(array('thumbnail'));
 		
+		$select->join('category',
+		              'video.category_id = category.id',
+		              array('cat_id'=>'id',
+		              		'category_name',
+		              		'n_videos'=>new Expression('COUNT(video.category_id)')),
+		              Select::JOIN_LEFT)->group('category.category_name');;
+		
+		
+		$paginatorAdapter = new DbSelect(
+				// our configured select object
+				$select,
+				// the adapter to run it against
+				$this->tableGateway->getAdapter(),
+				// the result set to hydrate
+				new ResultSet()
+		);
+		
+		$paginator = new Paginator($paginatorAdapter);
+		return $paginator;
 	
 	}
 	
+	public function getVideosByCategory($cat_id){
+		//test if exist
+		$rowSet = $this->tableGateway->select(array('category_id'=>$cat_id));
+		$row = $rowSet->current();
+        if(!$row){
+        	throw new \Exception('Video category  id does not exist');
+        }
+		
+		$select = new Select('video');
+		$select->join('category',
+				'video.category_id = category.id',
+				array('cat_id'=>'id','cat_name'=>'category_name'),
+				Select::JOIN_LEFT );
+		$select->where(array('category_id'=>$cat_id));
+		$select->order(array('views'=>'desc'));
+		
+		$paginatorAdapter = new DbSelect(
+				// our configured select object
+				$select,
+				// the adapter to run it against
+				$this->tableGateway->getAdapter(),
+				// the result set to hydrate
+				new ResultSet()
+		);
+		
+		$paginator = new Paginator($paginatorAdapter);
+		return $paginator;
+	}
 	
 	
 	public function getRelatedVideos($videoTitle){

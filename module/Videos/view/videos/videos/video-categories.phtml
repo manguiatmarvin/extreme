@@ -1,2 +1,59 @@
-<?php
-echo  "Categories..";
+<?php 
+$title = 'Videos';
+$this->headTitle($title);
+$videos = $this->categories;
+
+?>
+<div class="row">
+	<!-- Left col -->
+	<section class="col-lg-7">
+		<div>
+			<!-- main sub page content// -->
+
+			<div class="panel-default">
+				<div class="panel-heading">
+					<i class="fa fa-youtube-play"></i> Newest Videos
+				</div>
+				<div class="panel-body">
+					<div class="box-body">
+					
+					<?php foreach ($videos as $v):?>
+		              <div class="col-sm-6">
+							<div class="thumbnail">
+								<a href="<?php echo  $this->url('videos',array('action'=>'videos-by-category','id'=>$v->cat_id))?>"><img src="<?php echo $v->thumbnail; ?>"
+									width="100%" height="100%" alt="..."></a>
+								<div class="runtime">
+									<span class="badge"> <?php echo $v->n_videos;?> <i class="fa fa-video-camera"></i></span>
+								</div>
+								<h4><b><?php echo $v->category_name?></b></h4>
+							</div>
+						</div>
+                    <?php endforeach;?>
+					</div>
+
+
+				</div>
+			</div>
+
+		</div>
+
+	</section>
+	<!-- /.Left col -->
+
+	<!-- right col (We are only adding the ID to make the widgets sortable)-->
+	<section class="col-lg-5 connectedSortable">
+
+		<div class="panel-default">
+			<div class="panel-heading">
+				<i class="fa  fa-bookmark"></i> Videos Ads
+			</div>
+			<div class="panel-body rightbar-menu">
+				<!-- right navigation //-->
+              <?php echo $this->render('layout/newvideos') ?>
+			</div>
+		</div>
+	</section>
+
+</div>
+
+

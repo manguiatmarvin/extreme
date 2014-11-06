@@ -39,6 +39,27 @@ class VideosController extends AbstractActionController {
 	}
 	
 	
+	 public function VideosByCategoryAction(){
+
+	 	$id = (int) $this->params()->fromRoute('id', 0);
+	 	if (!$id) {
+	 		return $this->redirect()->toRoute('video-categories');
+	 	}
+	 	
+	 	// Get the Album with the specified id.  An exception is thrown
+	 	// if it cannot be found, in which case go to the index page.
+	 	try {
+	 		
+	 		$videos = $this->getVideosTable()->getVideosByCategory($id);
+	 	}
+	 	catch (\Exception $ex) {
+	 		//change this to 404
+	 		return $this->redirect()->toRoute('video-categories');
+	 	}
+	 	
+	 	return new ViewModel(array('videos'=>$videos));
+	}
+	
     public function getVideoJsonAction(){
     	
     	$id = (int) $this->params()->fromRoute('id', 0);
@@ -70,7 +91,8 @@ class VideosController extends AbstractActionController {
     }
     
     public function VideoCategoriesAction(){
-    	return new ViewModel();
+  
+    	return new ViewModel(array('categories'=>$this->getVideosTable()->getVideoCategories()));
     }
 	
 	public function latestAction(){
