@@ -86,6 +86,44 @@ class VideosController extends AbstractActionController {
     }
     
     
+    public function AddVideoLikesJsonAction(){
+
+    	$request = $this->getRequest();
+    	if($request->isPost()){
+    		$video_id = $request->getPost('video_id');
+    		try {
+    			$video = $this->getVideosTable()->getVideoSigle($video_id);
+    			$addLikeRes = $this->getVideosTable()->addVideoLikes($video->id);
+    		}
+    		catch (\Exception $ex) {
+    			//change this to 404
+    			return new JsonModel(array('result'=>'failed'));
+    		}
+    		return  new JsonModel(array('result'=>$addLikeRes));
+    	}
+    	
+    	return new JsonModel(array('result'=>'failed'));
+    }
+    
+    
+    public function AddVideoDislikesJsonAction(){$request = $this->getRequest();
+    	if($request->isPost()){
+    		$video_id = $request->getPost('video_id');
+    		try {
+    			$video = $this->getVideosTable()->getVideoSigle($video_id);
+    			$addDislikeRes = $this->getVideosTable()->addVideoDislikes($video->id);
+    		}
+    		catch (\Exception $ex) {
+    			//change this to 404
+    			return new JsonModel(array('result'=>'failed'));
+    		}
+    		return  new JsonModel(array('result'=>$addDislikeRes));
+    	}
+    	
+    	return new JsonModel(array('result'=>'failed'));
+    }
+    
+    
     public function MostViewedVideosAction(){
     	    return new ViewModel(array('videos'=>$this->getVideosTable()->getMostViewedVideos(),));
     }

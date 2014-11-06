@@ -13,7 +13,6 @@ use Zend\Paginator\Paginator;
 use Zend\Filter\DateTimeFormatter;
 
 
-
 class VideosTable {
 	protected $tableGateway;
 	protected $videoId;
@@ -52,6 +51,40 @@ class VideosTable {
 		$data = array('views'=>$currentViews+1);
 		$this->tableGateway->update($data,array('id'=>$id));
 		
+	}
+	
+	public function addVideoLikes($id){
+		$rowSet = $this->tableGateway->select(array('id'=>$id));
+		$row = $rowSet->current();
+		if(!$row){
+			throw new \Exception('Video id does not exist');
+		}
+		
+		$tmp_likes  = (int) $row->likes + 1;
+		
+		$data = array(
+			'likes'=>$tmp_likes
+		);
+	
+		$this->tableGateway->update($data,array('id'=>$id));
+		return $tmp_likes;
+	}
+	
+	public function addVideoDislikes($id){
+	$rowSet = $this->tableGateway->select(array('id'=>$id));
+		$row = $rowSet->current();
+		if(!$row){
+			throw new \Exception('Video id does not exist');
+		}
+		
+		$tmp_dislikes  =  (int) $row->dislikes + 1;
+		
+		$data = array(
+			'dislikes'=>$tmp_dislikes
+		);
+	
+		$this->tableGateway->update($data,array('id'=>$id));
+		return $tmp_dislikes;	
 	}
 	
 	public function getNewestVideos(){
