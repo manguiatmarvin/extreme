@@ -74,5 +74,14 @@ $(function() {
 		  
 	});
 	
+	$(".basic").jRating({
+	  isDisabled : true,
+	  step:false,
+	  length :5,
+	  sendRequest : false,
+	  decimalLength:2
+	  
+	});
+	
 	
 });// end function

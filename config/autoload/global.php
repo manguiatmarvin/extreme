@@ -48,6 +48,13 @@ return array (
 												'resource' => 'video-categories',
 												'show_in_menu' => true
 										),
+										array (
+												'label' => 'Top Rated',
+												'route' => 'videos',
+												'action' => 'top-rated-videos',
+												'resource' => 'top-rated-videos',
+												'show_in_menu' => true
+										),
 										
 								)
 								 

@@ -110,6 +110,45 @@ class VideosTable {
 	}
 	
 	
+	public function getTopRatedVideos(){
+		$select = new Select('video');
+		$select->columns(array('id', 
+				               'title',
+		                       'desc',
+		                       'runtime',
+		                       'embed_code',
+		                       'video_src',
+		                       'video_path',
+		                       'thumbnail',
+		                       'uploaded',
+		                       'views',
+		                       'likes',
+		                        'dislikes',
+		                       'rate'=>new Expression('(video.likes / ( video.dislikes + video.likes)) * 100')));
+		$select->join('category',
+				'video.category_id = category.id',
+				array('cat_id'=>'id','cat_name'=>'category_name'),
+				Select::JOIN_LEFT );
+		
+		$select->having('rate > 0');
+	
+		$select->order(array('rate'=>'desc',
+		                     'views'=>'asc'));
+	
+	
+		$paginatorAdapter = new DbSelect(
+				// our configured select object
+				$select,
+				// the adapter to run it against
+				$this->tableGateway->getAdapter(),
+				// the result set to hydrate
+				new ResultSet()
+		);
+		$paginator = new Paginator($paginatorAdapter);
+		return $paginator;
+	}
+	
+	
 
 	public function getMostViewedVideos(){
 		$select = new Select('video');
@@ -165,11 +204,28 @@ class VideosTable {
         	throw new \Exception('Video category  id does not exist');
         }
 		
-		$select = new Select('video');
+			$select = new Select('video');
+		$select->columns(array('id', 
+				               'title',
+		                       'desc',
+		                       'runtime',
+		                       'embed_code',
+		                       'video_src',
+		                       'video_path',
+		                       'thumbnail',
+		                       'uploaded',
+		                       'views',
+		                       'likes',
+		                        'dislikes',
+		                       'rate'=>new Expression('(video.likes / ( video.dislikes + video.likes)) * 100')));
 		$select->join('category',
 				'video.category_id = category.id',
 				array('cat_id'=>'id','cat_name'=>'category_name'),
 				Select::JOIN_LEFT );
+		
+		$select->having('rate > 0');
+		
+		
 		$select->where(array('category_id'=>$cat_id));
 		$select->order(array('views'=>'desc'));
 		

@@ -6,7 +6,6 @@ use Zend\View\Model\ViewModel;
 use MarvinFileUploadUtils\FileUploadUtils;
 use Zend\View\Model\JsonModel;
 
-
 class VideosController extends AbstractActionController {
 	protected $videosTable;
 	
@@ -58,6 +57,14 @@ class VideosController extends AbstractActionController {
 	 	}
 	 	
 	 	return new ViewModel(array('videos'=>$videos));
+	}
+	
+	/**
+	 * Display Top rated Videos
+	 */
+	public function TopRatedVideosAction(){
+
+		return new ViewModel(array('videos'=>$this->getVideosTable()->getTopRatedVideos()));
 	}
 	
     public function getVideoJsonAction(){
