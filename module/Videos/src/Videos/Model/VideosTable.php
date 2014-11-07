@@ -223,9 +223,6 @@ class VideosTable {
 				array('cat_id'=>'id','cat_name'=>'category_name'),
 				Select::JOIN_LEFT );
 		
-		$select->having('rate > 0');
-		
-		
 		$select->where(array('category_id'=>$cat_id));
 		$select->order(array('views'=>'desc'));
 		
