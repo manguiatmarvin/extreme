@@ -3,7 +3,10 @@ return array(
      'modules' => array(
          'Application',
          'Videos',
-          'Images'
+         'Images',
+     	  'Admin',
+     		'SanAuth',
+     	
    
      ),
      'module_listener_options' => array(

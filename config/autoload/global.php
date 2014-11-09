@@ -14,13 +14,6 @@ return array (
 		),
 		'navigation' => array (
 				'default' => array (
-						
-// 						array (
-// 								'label' => 'Home',
-// 								'route' => 'home',
-// 								'class' => 'fa-dashboard', 
-// 								'resource'=> 'home',
-// 						),
 						array (
 								'label' => 'Videos',
 								'route' => 'videos',
@@ -76,11 +69,36 @@ return array (
 										array (
 												'label' => 'Most Viewed',
 												'route' => 'images',
-												'action' => 'mostviewed-images',
-												'resource' => 'mostviewed-images',
+												'action' => 'most-viewed-images',
+												'resource' => 'most-viewed-images',
 												'show_in_menu' => true
 										),
 										
+								)
+						),
+						
+						array (
+								'label' => 'Admin',
+								'route' => 'admin',
+								'class' => ' fa-camera',
+								'resource'=> 'admin',
+								'show_in_menu' => true,
+								'pages' => array (
+										array (
+												'label' => 'Login',
+												'route' => 'admin',
+												'action' => 'view-vids',
+												'resource' => 'admin-view-vis',
+												'show_in_menu' => true,
+										),
+// 										array (
+// 												'label' => 'Most Viewed',
+// 												'route' => 'images',
+// 												'action' => 'most-viewed-images',
+// 												'resource' => 'most-viewed-images',
+// 												'show_in_menu' => true
+// 										),
+						
 								)
 						),
 						) 
