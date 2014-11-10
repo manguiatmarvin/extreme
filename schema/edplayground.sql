@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 06, 2014 at 08:11 PM
+-- Generation Time: Nov 10, 2014 at 08:02 PM
 -- Server version: 5.5.38-0ubuntu0.14.04.1-log
 -- PHP Version: 5.5.9-1ubuntu4.4
 
@@ -61,6 +61,37 @@ CREATE TABLE IF NOT EXISTS `images` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `users`
+--
+
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_name` varchar(100) NOT NULL,
+  `pass_word` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `role` varchar(150) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `user_name`, `pass_word`, `email`, `role`) VALUES
+(11, 'mmanguiat', 'secret123', 'marvin.manguiat@sourcefit.com', 'admin'),
+(12, 'jsalillas', 'secret123', 'jayson.salillas@sourcefit.com', 'employee'),
+(13, 'edelacruz', 'secret123', 'edgar.delacruz@sourcefit.com', 'manager'),
+(14, 'peterdinklage', 'secret123', 'peterdinklage@yahoo.com', 'admin'),
+(15, 'nikolacosterwaldau', 'secret123', 'nikolacosterwaldau@yahoo.com', 'employee'),
+(16, 'lenaheadey', 'secret123', 'lenaheadey@gmail.com', 'employee'),
+(17, 'isaachempstead', 'secret123', 'isaachempstead@gmail.com', 'manager'),
+(18, 'client1', 'secret123', 'client1.e62014@gmail.com', 'client'),
+(19, 'client2', 'secret123', 'client2.e62014@gmail.com', 'client');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `video`
 --
 
@@ -87,12 +118,12 @@ CREATE TABLE IF NOT EXISTS `video` (
 --
 
 INSERT INTO `video` (`id`, `title`, `desc`, `category_id`, `runtime`, `embed_code`, `video_src`, `video_path`, `thumbnail`, `uploaded`, `modified`, `views`, `likes`, `dislikes`) VALUES
-(1, 'Paul Gilbert', 'Paul Gilbert & Freddie Nelson - Let It Be (LIVE)', 3, '20:10', '<video width="400" controls>\r\n  <source src="http://xpedler.com/videos/serv/1" type="video/mp4">\r\n  Your browser does not support HTML5 video.\r\n</video>', 'http://173.45.66.115/serv/serv.php?id=1', '/videos/2014/10/video_1.mp4', '/img/thumbnails/vids/2014/10/sample320x200.png', '2014-10-28 10:24:11', '2014-09-23 00:00:00', 1054, 11, 9),
-(2, 'Paul Gilbert', 'From licklibrary.com another piece ', 2, '30:41', '<iframe width="560" height="315" src="//www.youtube.com/embed/zU_KoxFQd64" frameborder="0" allowfullscreen></iframe>', 'http://173.45.66.115/serv/serv.php?id=2', '/videos/2014/10/video_2.mp4', '/img/thumbnails/vids/2014/10/sample320x200.png', '2014-02-02 04:10:11', '2014-10-20 00:00:00', 89, 15, 4),
-(3, 'Paul Gilbert', 'Far Beyond The Sun played by Yngwie Malmsteen', 1, '6:00', '<iframe width="420" height="315" src="//www.youtube.com/embed/eK0rvReE-4c" frameborder="0" allowfullscreen></iframe>', '/videos/2014/10/video_1.mp4', '', '/img/thumbnails/vids/2014/10/sample320x200-1.png', '2014-09-28 04:10:11', '0000-00-00 00:00:00', 103, 0, 0),
-(4, 'YNGWIE MALMSTEEN Live [HD] Black Star', 'YNGWIE MALMSTEEN Live [HD] Black Star', 3, '10:46', '<iframe width="420" height="315" src="//www.youtube.com/embed/QvMKsgVBzMo" frameborder="0" allowfullscreen></iframe>', '/videos/2014/10/video_1.mp4', '', '/img/thumbnails/vids/2014/10/sample320x200-1.png', '2014-10-20 00:00:00', '2014-10-20 00:00:00', 65, 0, 0),
+(1, 'Paul Gilbert', 'Paul Gilbert & Freddie Nelson - Let It Be (LIVE)', 3, '20:10', '<video width="400" controls>\r\n  <source src="http://xpedler.com/videos/serv/1" type="video/mp4">\r\n  Your browser does not support HTML5 video.\r\n</video>', 'http://173.45.66.115/serv/serv.php?id=1', '/videos/2014/10/video_1.mp4', '/img/thumbnails/vids/2014/10/sample320x200.png', '2014-10-28 10:24:11', '2014-09-23 00:00:00', 1058, 12, 10),
+(2, 'Paul Gilbert', 'From licklibrary.com another piece ', 2, '30:41', '<iframe width="560" height="315" src="//www.youtube.com/embed/zU_KoxFQd64" frameborder="0" allowfullscreen></iframe>', 'http://173.45.66.115/serv/serv.php?id=2', '/videos/2014/10/video_2.mp4', '/img/thumbnails/vids/2014/10/sample320x200.png', '2014-02-02 04:10:11', '2014-10-20 00:00:00', 94, 15, 6),
+(3, 'Paul Gilbert', 'Far Beyond The Sun played by Yngwie Malmsteen', 1, '6:00', '<iframe width="420" height="315" src="//www.youtube.com/embed/eK0rvReE-4c" frameborder="0" allowfullscreen></iframe>', '/videos/2014/10/video_1.mp4', '', '/img/thumbnails/vids/2014/10/sample320x200-1.png', '2014-09-28 04:10:11', '0000-00-00 00:00:00', 104, 0, 0),
+(4, 'YNGWIE MALMSTEEN Live [HD] Black Star', 'YNGWIE MALMSTEEN Live [HD] Black Star', 3, '10:46', '<iframe width="420" height="315" src="//www.youtube.com/embed/QvMKsgVBzMo" frameborder="0" allowfullscreen></iframe>', '/videos/2014/10/video_1.mp4', '', '/img/thumbnails/vids/2014/10/sample320x200-1.png', '2014-10-20 00:00:00', '2014-10-20 00:00:00', 75, 6, 3),
 (5, 'Steve Vai Tender Surrender full HD', '2009 Where the Wild Things Are DVD', 3, '4:39', '<iframe width="560" height="315" src="//www.youtube.com/embed/_Tp7RHzm9x0" frameborder="0" allowfullscreen></iframe>', '/videos/2014/10/video_4.mp4', '', '/img/thumbnails/vids/2014/10/sample320x200-3.png', '2014-10-22 00:00:00', '2014-10-20 00:00:00', 13, 0, 0),
-(6, 'Joe Satriani - Always With Me, Always With You (Live 2006)', 'Joe Satriani - Always With Me, Always', 3, '12:50', '<iframe width="560" height="315" src="//www.youtube.com/embed/b1DzRb4DHGw" frameborder="0" allowfullscreen></iframe>', '/videos/2014/10/video_1.mp4', '', '/img/thumbnails/vids/2014/10/sample320x200-2.png', '2014-10-24 04:14:17', '2014-10-20 00:00:00', 130, 0, 0);
+(6, 'Joe Satriani - Always With Me, Always With You (Live 2006)', 'Joe Satriani - Always With Me, Always', 3, '12:50', '<iframe width="560" height="315" src="//www.youtube.com/embed/b1DzRb4DHGw" frameborder="0" allowfullscreen></iframe>', '/videos/2014/10/video_1.mp4', '', '/img/thumbnails/vids/2014/10/sample320x200-2.png', '2014-10-24 04:14:17', '2014-10-20 00:00:00', 132, 1, 0);
 
 -- --------------------------------------------------------
 

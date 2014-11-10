@@ -77,6 +77,52 @@ return array (
 								)
 						),
 						
+						array (
+								'label' => 'Admin',
+								'route' => 'admin',
+								'class' => ' fa-camera',
+								'resource'=> 'admin',
+								'pages' => array (
+										array (
+												'label' => 'Home',
+												'route' => 'admin',
+												'action' => 'index',
+												'resource' => 'admin',
+												'show_in_menu' => true
+										),
+										array (
+												'label' => 'Manage Album',
+												'route' => 'admin',
+												'action' => 'manage-album',
+												'resource' => 'manage-album',
+												'show_in_menu' => true
+										),
+										array (
+												'label' => 'Manage Videos',
+												'route' => 'admin',
+												'action' => 'manage-videos',
+												'resource' => 'manage-videos',
+												'show_in_menu' => true
+										),
+										
+										array (
+												'label' => 'Manage Users',
+												'route' => 'admin',
+												'action' => 'manage-users',
+												'resource' => 'manage-users',
+												'show_in_menu' => true
+										),
+											array (
+												'label' => 'Logout',
+												'route' => 'login/process',
+												'action' => 'logout',
+												'resource'=> 'logout',
+												'show_in_menu' => true,
+										) 
+						
+								)
+						),
+						
 				
 						) 
 				
