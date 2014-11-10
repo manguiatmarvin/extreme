@@ -17,7 +17,6 @@ class AuthController extends AbstractActionController
 	protected $authTable;
     protected $storage;
     protected $authservice;
-    protected $empLoginsTable;
 
     public function getAuthService()
     {
@@ -110,7 +109,7 @@ class AuthController extends AbstractActionController
     {
         if ($this->getAuthService()->hasIdentity()) {
         	
-        	$identity = $this->getAuthService()->getIdentity();
+        	//$identity = $this->getAuthService()->getIdentity();
         	
             $this->getSessionStorage()->forgetMe();
             $this->getAuthService()->clearIdentity();
@@ -118,7 +117,7 @@ class AuthController extends AbstractActionController
            
         }
 
-        return $this->redirect()->toRoute('login');
+        return $this->redirect()->toRoute('videos');
     }
     
     
