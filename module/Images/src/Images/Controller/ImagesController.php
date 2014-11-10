@@ -15,7 +15,7 @@ class ImagesController extends AbstractActionController {
 	}
 
 	
-	public function latestAction(){
+	public function MostViewedImagesAction(){
 		return new ViewModel();
 	}
 	

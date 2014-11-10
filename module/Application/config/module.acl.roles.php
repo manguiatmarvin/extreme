@@ -10,7 +10,10 @@ return array (
 				'images',
 				'newest-images',
 				'most-viewed-images',
-				'auth'
+				'login',
+				'login/process',
+				'admin-login',
+				 'auth'
 		),
 		'admin' => array (
 				'admin',
@@ -18,5 +21,9 @@ return array (
 				'manage-videos',
 				'manage-album',
 				'manage-users',
+				'logout',
+				'admin-logout',
+				'admin-login',
+				'auth'
 		),		 
 );

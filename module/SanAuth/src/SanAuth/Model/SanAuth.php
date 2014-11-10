@@ -10,6 +10,7 @@ class SanAuth implements InputFilterAwareInterface
 	public $id;
 	public $users_id;
 	public $username;
+	public $role;
 
 	private $inputFilter;
 	
@@ -19,6 +20,7 @@ class SanAuth implements InputFilterAwareInterface
 		$this->id     = (!empty($data['id'])) ? $data['id'] : null;
 		$this->users_id = (!empty($data['users_id'])) ? $data['users_id'] : null;
 		$this->username  = (!empty($data['username'])) ? $data['username'] : null;
+		$this->role  = (!empty($data['role'])) ? $data['role'] : null;
 	}
 	
 	

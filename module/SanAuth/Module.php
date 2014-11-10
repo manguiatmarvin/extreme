@@ -49,7 +49,7 @@ class Module implements AutoloaderProviderInterface
 							$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
 							$resultSetPrototype = new ResultSet();
 							$resultSetPrototype->setArrayObjectPrototype(new SanAuth());
-							return new TableGateway('user_profile', $dbAdapter, null, $resultSetPrototype);
+							return new TableGateway('users', $dbAdapter, null, $resultSetPrototype);
 						},
 				),
 		);

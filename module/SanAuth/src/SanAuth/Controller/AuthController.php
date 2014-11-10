@@ -115,7 +115,7 @@ class AuthController extends AbstractActionController
             $this->getSessionStorage()->forgetMe();
             $this->getAuthService()->clearIdentity();
             $this->flashmessenger()->addMessage("You've been logged out");
-            $this->getAuthTable()->logInLogOut($identity["id"],0);
+           
         }
 
         return $this->redirect()->toRoute('login');
