@@ -91,13 +91,27 @@ return array (
 												'resource' => 'admin-view-vis',
 												'show_in_menu' => true,
 										),
-// 										array (
-// 												'label' => 'Most Viewed',
-// 												'route' => 'images',
-// 												'action' => 'most-viewed-images',
-// 												'resource' => 'most-viewed-images',
-// 												'show_in_menu' => true
-// 										),
+										array (
+												'label' => 'Manage Videos',
+												'route' => 'admin',
+												'action' => 'manage-videos',
+												'resource' => 'manage-videos',
+												'show_in_menu' => true
+										),
+										array (
+												'label' => 'Manage Album',
+												'route' => 'admin',
+												'action' => 'manage-album',
+												'resource' => 'manage-album',
+												'show_in_menu' => true
+										),
+										array (
+												'label' => 'Manage Users',
+												'route' => 'admin',
+												'action' => 'manage-users',
+												'resource' => 'manage-users',
+												'show_in_menu' => true
+										),
 						
 								)
 						),

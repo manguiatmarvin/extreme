@@ -4,9 +4,8 @@ return array(
          'Application',
          'Videos',
          'Images',
-     	  'Admin',
-     		'SanAuth',
-     	
+     	 'Admin',
+     	 'SanAuth',
    
      ),
      'module_listener_options' => array(
