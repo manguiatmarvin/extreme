@@ -23,11 +23,63 @@ class Module{
         $eventManager        = $application->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
-      
+        $this -> initAcl($e);
+        $e -> getApplication() -> getEventManager() -> attach('route', array($this, 'checkAcl'));
     }
-
 	
-
+    public function initAcl(MvcEvent $e) {
+    
+    	$acl = new \Zend\Permissions\Acl\Acl();
+    	$roles = include __DIR__ . '/config/module.acl.roles.php';
+    	$allResources = array();
+    	foreach ($roles as $role => $resources) {
+    
+    		$role = new \Zend\Permissions\Acl\Role\GenericRole($role);
+    		$acl -> addRole($role);
+    
+    		$allResources = array_merge($resources, $allResources);
+    			
+    				//adding resources
+    				foreach ($resources as $resource) {
+    					if(!$acl ->hasResource($resource))
+    						$acl -> addResource(new \Zend\Permissions\Acl\Resource\GenericResource($resource));
+    				}
+    				//adding restrictions
+    				//If access inheritance is needed just replace bellow code from-> foreach ($resources as $resource) { to -> foreach ($allResources as $resource) { 
+    				foreach ($resources as $resource) {
+    					$acl -> allow($role, $resource);
+    				}
+    	}
+    	//testing
+    	//var_dump($acl->isAllowed('admin','home'));
+    	//true
+    
+    	//setting to view
+    	$e -> getViewModel() -> acl = $acl;
+    
+    }
+    
+    public function checkAcl(MvcEvent $e) {
+    	$route = $e -> getRouteMatch() -> getMatchedRouteName();
+    	//you set your role
+    	
+    	$auth = $e->getApplication()->getServiceManager()->get('AuthService')->getStorage ()->read ();
+    	
+    	if($auth == null){
+    		$userRole = 'guest';
+    	
+    	}else{
+    		$userRole = "admin";
+    	}
+    
+    	if (!$e -> getViewModel() -> acl -> isAllowed($userRole, $route)) {
+    		$response = $e -> getResponse();
+    		//location to page or what ever
+    		$response -> getHeaders() -> addHeaderLine('Location', $e -> getRequest() -> getBaseUrl() . '/404');
+    		$response -> setStatusCode(404);
+    
+    	}
+    }
     public function getConfig(){
         return include __DIR__ . '/config/module.config.php';
     }
@@ -40,7 +92,26 @@ class Module{
     
     					'SanAuth\Model\MyAuthStorage' => function ($sm) {
     						return new \SanAuth\Model\MyAuthStorage ( 'sms_storage' );
-    					}
+    					},
+    					'AuthService' => function ($sm) {
+    						$dbAdapter = $sm->get ( 'Zend\Db\Adapter\Adapter' );
+    						// I'm going to change the password encryption from Md5 to  BCrypt
+    						//$dbTableAuthAdapter = new DbTableAuthAdapter ( $dbAdapter, 'users', 'user_name', 'pass_word', 'MD5(?)' );
+    					
+    						//     						if ($bcrypt->verify("iloveyou","\$2y\$10\$yRz2geYWuRg4bgK5v5pN3O89PVOpQa0sk7uGMBzD3n7sEVuy5GmCa")) {
+    						//     							echo "The password is correct! \n";
+    						//     						} else {
+    						//     							echo "The password is NOT correct.\n";
+    						//     						}
+    					
+    						$dbTableAuthAdapter = new DbTableAuthAdapter ( $dbAdapter, 'users', 'user_name', 'pass_word', '' );
+    									
+    								$authService = new AuthenticationService ();
+    						$authService->setAdapter ( $dbTableAuthAdapter );
+    						$authService->setStorage ( $sm->get('SanAuth\Model\MyAuthStorage'));
+    					
+    						return $authService;
+    					},
     			),
     	);
     }

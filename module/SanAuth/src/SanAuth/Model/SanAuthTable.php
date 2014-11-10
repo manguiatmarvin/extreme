@@ -27,6 +27,16 @@ use Zend\Paginator\Paginator;
      	}
      }
 
+     
+     public function getUserFullDetails($username){
+     	$rowSet = $this->tableGateway->select(array('user_name'=>$username));
+     	$data = $rowSet->current();
+     	if($data){
+     	  return $data;
+     	}
+     	return null;
+     }
+     
      public function getProfileInfoByUserName($username) {
      	// get DB adapter
      	$dbAdapter = $this->tableGateway->getAdapter ();

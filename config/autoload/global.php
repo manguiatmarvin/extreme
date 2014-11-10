@@ -87,8 +87,8 @@ return array (
 										array (
 												'label' => 'Login',
 												'route' => 'admin',
-												'action' => 'view-vids',
-												'resource' => 'admin-view-vis',
+												'action' => 'auth',
+												'resource' => 'admin-login',
 												'show_in_menu' => true,
 										),
 										array (
