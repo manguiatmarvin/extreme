@@ -1,7 +1,6 @@
 <?php
 return array (
 		'guest' => array (
-				'home',
 				'videos',
 				'success',
 				'newest-videos',
@@ -14,7 +13,7 @@ return array (
 				'login',
 				'login/process',
 				'admin-login',
-				 'auth'
+				 'auth',
 		),
 		'admin' => array (
 				'admin',

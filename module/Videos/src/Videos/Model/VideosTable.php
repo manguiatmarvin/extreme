@@ -38,9 +38,16 @@ class VideosTable {
 		
 		$rowSet = $this->tableGateway->select(array('id'=>$id));
 		$row = $rowSet->current();
+	
+		
         if(!$row){
         	throw new \Exception('Video id does not exist');
         }
+        
+        if(!$row->publish){
+        	throw new \Exception('Video is cunrrently not available at the moment');
+        }
+        
         return $row;
 	}
 	
@@ -93,7 +100,7 @@ class VideosTable {
 		              'video.category_id = category.id',
 		              array('cat_id'=>'id','cat_name'=>'category_name'),
 		              Select::JOIN_LEFT );
-
+		$select->where(array('publish'=>1));
 		$select->order(array('uploaded'=>'ACS'));
 		
 		
@@ -131,7 +138,7 @@ class VideosTable {
 				Select::JOIN_LEFT );
 		
 		$select->having('rate > 0');
-	
+		$select->where(array('publish'=>1));
 		$select->order(array('rate'=>'desc',
 		                     'views'=>'asc'));
 	
@@ -156,6 +163,7 @@ class VideosTable {
 		              'video.category_id = category.id',
 		              array('cat_id'=>'id','cat_name'=>'category_name'),
 		              Select::JOIN_LEFT );
+		$select->where(array('publish'=>1));
 		$select->order(array('views'=>'desc'));
 	
 		$paginatorAdapter = new DbSelect(
@@ -223,7 +231,7 @@ class VideosTable {
 				array('cat_id'=>'id','cat_name'=>'category_name'),
 				Select::JOIN_LEFT );
 		
-		$select->where(array('category_id'=>$cat_id));
+		$select->where(array('category_id'=>$cat_id,'publish'=>1));
 		$select->order(array('views'=>'desc'));
 		
 		$paginatorAdapter = new DbSelect(
@@ -243,6 +251,7 @@ class VideosTable {
 	public function getRelatedVideos($videoTitle){
 		$videoTitle = '%'.$videoTitle.'%';
 		$select = new Select('video');
+		$select->where(array('publish'=>1));
 		$select->where->like('title',$videoTitle);
 		$select->order(array('uploaded'=>'ACS'));
 	

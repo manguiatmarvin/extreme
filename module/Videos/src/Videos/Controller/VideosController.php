@@ -30,6 +30,7 @@ class VideosController extends AbstractActionController {
 		}
 		catch (\Exception $ex) {
 			//change this to 404
+			$this->flashmessenger()->addErrorMessage($ex->getMessage());
 			return $this->redirect()->toRoute('videos');
 		}
 		

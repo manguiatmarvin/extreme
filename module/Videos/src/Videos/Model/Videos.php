@@ -23,6 +23,7 @@ class Videos implements InputFilterAwareInterface
 	public $video_path;
 	public $likes;
 	public $dislikes;
+	public $publish;
 	
 	
 	//input filter
@@ -45,6 +46,7 @@ class Videos implements InputFilterAwareInterface
 		$this->video_path = (!empty($data['video_path'])) ? $data['video_path'] : null;
 		$this->likes = (!empty($data['likes'])) ? $data['likes'] : null;
 		$this->dislikes = (!empty($data['dislikes'])) ? $data['dislikes'] : null;
+		$this->publish = (!empty($data['publish'])) ? $data['publish'] : null;
 		
 	}
 	

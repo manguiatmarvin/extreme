@@ -70,6 +70,7 @@ class Module{
     	
     	$auth = $e->getApplication()->getServiceManager()->get('AuthService')->getStorage ()->read ();
     	$e -> getViewModel() -> auth = $auth;
+    	$e->getViewModel()->route = $route;
     	
     	if($auth==null){
     		$userRole = 'guest';
