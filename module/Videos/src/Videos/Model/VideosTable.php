@@ -34,7 +34,7 @@ class VideosTable {
 	}
 	
 	
-	public function getVideoSigle($id){
+	public function getVideoSigle($id,$allowUnpublished=false){
 		
 		$rowSet = $this->tableGateway->select(array('id'=>$id));
 		$row = $rowSet->current();
@@ -44,11 +44,39 @@ class VideosTable {
         	throw new \Exception('Video id does not exist');
         }
         
-        if(!$row->publish){
-        	throw new \Exception('Video is cunrrently not available at the moment');
+        if($allowUnpublished){
+        	
+        }
+        
+        if(!$row->publish && !$allowUnpublished){
+         throw new \Exception('Video is cunrrently not available at the moment');
         }
         
         return $row;
+	}
+	
+	
+	
+
+	/**
+	 *use ti fill the select box
+	 * @return array of category
+	 */
+	public function getCategoryArray() {
+	
+		$dbAdapter = $this->tableGateway->getAdapter();
+		$sql = 'SELECT * from category';
+		$statement = $dbAdapter->query($sql);
+		$result = $statement->execute();
+	
+		$selectData = array();
+	
+		foreach ($result as $res) {
+	
+			$selectData[$res['id']] = $res['category_name'];
+		}
+	
+		return $selectData;
 	}
 	
 	public function UpdateVideoViews($id,$currentViews){

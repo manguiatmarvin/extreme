@@ -1,41 +1,21 @@
 <?php 
-$title = 'Videos Online';
+$title = 'Edit Video';
 $this->headTitle($title);
 $videos = $this->videos;
-?>
-<?php echo $this->render('flashmessenger/layout') ?>
-<div class="row">
 
+echo $this->render('flashmessenger/layout') ?>
+<div class="row">
 	<!-- Left col -->
-	<section class="col-lg-7 connectedSortable">
+	<section class="col-lg-7">
 		<div>
 			<!-- main sub page content// -->
 
-			<div class="panel panel-default">
-				<div class="panel-heading">Videos</div>
+			<div class="panel-default">
+				<div class="panel-heading">
+					<i class="fa fa-youtube-play"></i> Newest Videos
+				</div>
 				<div class="panel-body">
-
 					<div class="box-body">
-						<div class="row">
-							<div class="col-xs-12">
-								<div class="box">
-									<div class="box-header">
-										<h3 class="box-title">Responsive Hover Table</h3>
-										<div class="box-tools">
-											<div class="input-group">
-												<input type="text" name="table_search"
-													class="form-control input-sm pull-right"
-													style="width: 150px;" placeholder="Search" />
-												<div class="input-group-btn">
-													<button class="btn btn-sm btn-default">
-														<i class="fa fa-search"></i>
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>
-									<!-- /.box-header -->
-									<div class="box-body table-responsive no-padding">
 										<table class="table table-hover">
 											<tr>
 												<th>id</th>
@@ -63,36 +43,33 @@ $videos = $this->videos;
 												<td><?php  echo date("m/d/y g:i A", strtotime($v->uploaded));?></td>
 												<td><?php echo $v->views;?></td>
 												<td><?php echo $v->cat_name;?></td>
-												<td><span class="label <?php echo ($v->publish)? "label-success":"label-danger"?>"><?php echo ($v->publish)? "live":"inactive"; ?></span></td>
+												<td><span class="label <?php echo ($v->publish)? "label-success":"label-danger"?>"><?php echo ($v->publish)? "live":"inactive"?></span></td>
 												<td><a href="">Delete</a> | <a href="<?php echo $this->url('admin',array('action'=>'admin-edit-video','id'=>$v->id));?>">Update</a> | <a href="">re-upload</a></td>
 											</tr>
-											<?php endforeach;?>
-																					
+											<?php endforeach;?>										
 										</table>
-									</div>
-									<!-- /.box-body -->
-								</div>
-								<!-- /.box -->
-							</div>
-
-
-						</div>
 					</div>
 
+
 				</div>
-	
+			</div>
+
+		</div>
+
 	</section>
 	<!-- /.Left col -->
 
 	<!-- right col (We are only adding the ID to make the widgets sortable)-->
 	<section class="col-lg-5 connectedSortable">
 
-		<div class="panel panel-default">
-			<div class="panel-heading">Menu</div>
+		<div class="panel-default">
+			<div class="panel-heading">
+				<i class="fa  fa-bookmark"></i> Videos Ads
+			</div>
 			<div class="panel-body rightbar-menu">
 				<!-- right navigation //-->
-        <?php echo $this->render('layout/menu') ?>
-		</div>
+              <?php echo $this->render('layout/menu') ?>
+			</div>
 		</div>
 	</section>
 

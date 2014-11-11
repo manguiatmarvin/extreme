@@ -1,0 +1,75 @@
+<?php if($this->editVideoForm):?>
+  <?php
+	$form = $this->editVideoForm;
+	$video = $this->video;
+    $form->setAttribute('action', $this->url('admin', array('action' => 'admin-edit-video')));
+    $form->prepare();
+  ?>
+<div class="well box-body">
+<label>Preview</label>
+	<section id="player"
+		style="width: 100%; height: auto; float: left; padding: 5px">
+
+		<video id="<?php echo  $video->id?>"
+			class="video-js vjs-default-skin vjs-big-play-centered" controls
+			preload="auto" width="auto" height="auto"
+			poster="<?php echo $video->thumbnail; ?>" data-setup="{}">
+			<source src="<?php echo $video->video_src ?>" type='video/mp4'>
+			<p class="vjs-no-js">
+				To view this video please enable JavaScript, and consider upgrading
+				to a web browser that <a
+					href="http://videojs.com/html5-video-support/" target="_blank">supports
+					HTML5 video</a>
+			</p>
+		</video>
+	</section>
+
+	<div class="form-group">
+	<?php echo $this->form()->openTag($form);	?>
+    <?php echo $this->formHidden($form->get('id')); ?>
+    
+   <div class="form-group">
+			<div class="input-group">
+    <?php echo $this->formRow($form->get('title'));?>
+   </div>
+		</div>
+
+		<div class="form-group">
+			<div class="input-group">
+    <?php echo $this->formRow($form->get('desc'));?>
+   </div>
+		</div>
+
+		<div class="form-group">
+			<div class="input-group">
+    <?php echo $this->formRow($form->get('category_id'));?>
+   </div>
+		</div>
+
+		<div class="form-group">
+			<div class="input-group">
+    <?php echo $this->formRow($form->get('runtime'));?>
+   </div>
+		</div>
+
+		<div class="form-group">
+			<div class="input-group">
+    <?php echo $this->formRow($form->get('embed_code'));?>
+   </div>
+		</div>
+
+		<div class="form-group">
+			<div class="input-group">
+    <?php echo $this->formRow($form->get('publish'));?>
+   </div>
+		</div>
+
+		<div class="form-group">
+			<div class="input-group">
+   <?php echo $this->formSubmit($form->get('submit'));?>
+   </div>
+		</div>
+	<?php echo $this->form()->closeTag();?>
+   </div>
+</div>
+<?php endif;?>

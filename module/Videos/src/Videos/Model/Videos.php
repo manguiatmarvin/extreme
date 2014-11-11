@@ -20,6 +20,7 @@ class Videos implements InputFilterAwareInterface
 	public $modified;
 	public $views;
 	public $category;
+	public $category_id;
 	public $video_path;
 	public $likes;
 	public $dislikes;
@@ -43,6 +44,7 @@ class Videos implements InputFilterAwareInterface
 		$this->modified = (!empty($data['modified'])) ? $data['modified'] : null;
 		$this->views = (!empty($data['views'])) ? $data['views'] : null;
 		$this->category = (!empty($data['category'])) ? $data['category'] : null;
+		$this->category_id = (!empty($data['category_id'])) ? $data['category_id'] : null;
 		$this->video_path = (!empty($data['video_path'])) ? $data['video_path'] : null;
 		$this->likes = (!empty($data['likes'])) ? $data['likes'] : null;
 		$this->dislikes = (!empty($data['dislikes'])) ? $data['dislikes'] : null;
@@ -90,7 +92,7 @@ class Videos implements InputFilterAwareInterface
 									'options' => array(
 											'encoding' => 'UTF-8',
 											'min'      => 1,
-											'max'      => 75,
+											'max'      => 100,
 									),
 							),
 					),
@@ -98,7 +100,7 @@ class Videos implements InputFilterAwareInterface
 			
 			$inputFilter->add(array(
 					'name'     => 'desc',
-					'required' => true,
+					'required' => false,
 					'filters'  => array(
 							array('name' => 'StripTags'),
 							array('name' => 'StringTrim'),
@@ -109,7 +111,7 @@ class Videos implements InputFilterAwareInterface
 									'options' => array(
 											'encoding' => 'UTF-8',
 											'min'      => 1,
-											'max'      => 75,
+											'max'      => 100,
 									),
 							),
 					),
@@ -118,7 +120,7 @@ class Videos implements InputFilterAwareInterface
 			
 			$inputFilter->add(array(
 					'name'     => 'runtime',
-					'required' => true,
+					'required' => false,
 					'filters'  => array(
 							array('name' => 'StripTags'),
 							array('name' => 'StringTrim'),
@@ -138,7 +140,7 @@ class Videos implements InputFilterAwareInterface
 			
 			$inputFilter->add(array(
 					'name'     => 'embed_code',
-					'required' => true,
+					'required' => false,
 					'filters'  => array(
 							array('name' => 'StripTags'),
 							array('name' => 'StringTrim'),
@@ -154,10 +156,11 @@ class Videos implements InputFilterAwareInterface
 							),
 					),
 			));
+			
 			
 			
 			$inputFilter->add(array(
-					'name'     => 'thumbnail',
+					'name'     => 'published',
 					'required' => true,
 					'filters'  => array(
 							array('name' => 'StripTags'),
@@ -169,13 +172,12 @@ class Videos implements InputFilterAwareInterface
 									'options' => array(
 											'encoding' => 'UTF-8',
 											'min'      => 1,
-											'max'      => 10,
+											'max'      => 1,
 									),
 							),
 					),
 			));
-
-
+			
 	
 			$this->inputFilter = $inputFilter;
 		}

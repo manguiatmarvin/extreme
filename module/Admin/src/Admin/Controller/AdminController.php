@@ -4,7 +4,7 @@ namespace Admin\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Videos\Module;
-use Videos\Form;
+use Videos\Form\VideosForm;
 use Videos\Controller\VideosController;
 
 
@@ -20,6 +20,57 @@ class AdminController extends AbstractActionController {
 	  return new ViewModel(array('videos'=>$this->getVideosTable()->getAllVideos(),));
 	}
 	
+	public function AdminEditVideoAction(){
+		$id = (int) $this->params()->fromRoute('id', 0);
+		if (!$id) {
+			return $this->redirect()->toRoute('admin', array(
+					'action' => 'manage-videos'
+			));
+			
+		}
+		
+		try {
+			$video = $this->getVideosTable()->getVideoSigle($id,true);
+	        $videos = $this->getVideosTable()->getAllVideos();
+		}
+		catch (\Exception $ex) {
+			$this->flashmessenger()->addErrorMessage("".$ex->getMessage());
+			return $this->redirect()->toRoute('admin', array(
+					'action' => 'manage-videos'
+			));
+		}
+		$form  = new VideosForm();
+		$form->setOptionSelect($this->getVideosTable()->getCategoryArray());
+		$form->initialize();
+		
+		$form->bind($video);
+		$form->get('submit')->setAttribute('value', 'Edit');
+		$request = $this->getRequest();
+		if ($request->isPost()) {
+			$form->setInputFilter($video->getInputFilter());
+			$form->setData($request->getPost());
+		
+			if ($form->isValid()) {
+				//$this->getVideosTable()->saveVideo($video);
+				$this->flashmessenger()->addErrorMessage("Form is valid");
+				// Redirect to list of albums
+				return $this->redirect()->toRoute('admin', array('action'=>'manage-videos'));
+			}else{
+				//TODO: remove this else statement 
+				$this->flashmessenger()->addErrorMessage("Form is invalid");
+				return $this->redirect()->toRoute('admin', array('action'=>'manage-videos'));
+			}
+		}
+		
+		return array(
+				'id' => $id,
+				'editVideoForm' => $form,
+				'video'=>$video,
+				'videos'=>$videos
+		);
+		
+	}
+	
 	public function ManageAlbumAction() {
 		return new ViewModel ();
 	}
@@ -28,7 +79,6 @@ class AdminController extends AbstractActionController {
 		return new ViewModel ();
 	}
 	
-
 	
 	
 	
