@@ -99,11 +99,32 @@ class VideosTable {
 		$select->join('category',
 		              'video.category_id = category.id',
 		              array('cat_id'=>'id','cat_name'=>'category_name'),
-		              Select::JOIN_LEFT );
+		              Select::JOIN_LEFT);
 		$select->where(array('publish'=>1));
 		$select->order(array('uploaded'=>'ACS'));
 		
 		
+		$paginatorAdapter = new DbSelect(
+				// our configured select object
+				$select,
+				// the adapter to run it against
+				$this->tableGateway->getAdapter(),
+				// the result set to hydrate
+				new ResultSet()
+		);
+		$paginator = new Paginator($paginatorAdapter);
+		return $paginator;
+	}
+	
+	
+	public function getAllVideos(){
+		$select = new Select('video');
+		$select->join('category',
+				'video.category_id = category.id',
+				array('cat_id'=>'id','cat_name'=>'category_name'),
+				Select::JOIN_LEFT);
+		$select->order(array('uploaded'=>'ACS'));
+	
 		$paginatorAdapter = new DbSelect(
 				// our configured select object
 				$select,

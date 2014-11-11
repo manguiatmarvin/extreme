@@ -34,21 +34,7 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
 	
 	
 	public function getServiceConfig(){
-		return array(
-				'factories' => array(
-						'Videos\Model\VideosTable' =>  function($sm) {
-							$tableGateway = $sm->get('VideosTableGateway');
-							$table = new VideosTable($tableGateway);
-							return $table;
-						},
-						'VideosTableGateway' => function ($sm) {
-							$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-							$resultSetPrototype = new ResultSet();
-							$resultSetPrototype->setArrayObjectPrototype(new Videos());
-							return new TableGateway('video', $dbAdapter, null, $resultSetPrototype);
-						},
-				),
-		);
+		
 	}
 }
 ?>
