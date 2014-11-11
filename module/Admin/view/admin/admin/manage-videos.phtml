@@ -61,7 +61,7 @@ $videos = $this->videos;
 													</div>
 												</td>
 												<td><?php  echo date("m/d/y g:i A", strtotime($v->uploaded));?></td>
-												<td>0</td>
+												<td><?php echo $v->views;?></td>
 												<td><?php echo $v->cat_name;?></td>
 												<td><span class="label <?php echo ($v->publish)? "label-success":"label-danger"?>"><?php echo ($v->publish)? "live":"inactive"?></span></td>
 												<td><a href="">Delete</a> | <a href="">Update</a> | <a href="">Re-encode</a></td>
