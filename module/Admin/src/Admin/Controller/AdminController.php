@@ -42,23 +42,23 @@ class AdminController extends AbstractActionController {
 		$form  = new VideosForm();
 		$form->setOptionSelect($this->getVideosTable()->getCategoryArray());
 		$form->initialize();
-		
 		$form->bind($video);
 		$form->get('submit')->setAttribute('value', 'Edit');
+		
 		$request = $this->getRequest();
 		if ($request->isPost()) {
 			$form->setInputFilter($video->getInputFilter());
-			$form->setData($request->getPost());
-		
+			$postData = $request->getPost();
+			$form->setData($postData);
 			if ($form->isValid()) {
-				//$this->getVideosTable()->saveVideo($video);
-				$this->flashmessenger()->addErrorMessage("Form is valid");
-				// Redirect to list of albums
-				return $this->redirect()->toRoute('admin', array('action'=>'manage-videos'));
+				$this->getVideosTable()->saveVideo($video);
+				$this->flashmessenger()->addErrorMessage("Video Updated Successfully!");
+				return $this->redirect()->toRoute('admin', array('action'=>'admin-edit-video','id'=>$id));
+			
 			}else{
 				//TODO: remove this else statement 
 				$this->flashmessenger()->addErrorMessage("Form is invalid");
-				return $this->redirect()->toRoute('admin', array('action'=>'manage-videos'));
+				return $this->redirect()->toRoute('admin', array('action'=>'admin-edit-video','id'=>$id));
 			}
 		}
 		

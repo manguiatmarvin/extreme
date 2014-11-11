@@ -15,20 +15,20 @@ class Videos implements InputFilterAwareInterface
 	public $runtime;
 	public $embed_code;
 	public $video_src;
-	public $thumbnail;
 	public $uploaded;
 	public $modified;
 	public $views;
 	public $category;
 	public $category_id;
 	public $video_path;
+	public $thumbnail;
 	public $likes;
 	public $dislikes;
 	public $publish;
 	
 	
 	//input filter
-	private $inputFilter;
+	protected $inputFilter;
 	
 
 	public function exchangeArray($data)
@@ -92,7 +92,7 @@ class Videos implements InputFilterAwareInterface
 									'options' => array(
 											'encoding' => 'UTF-8',
 											'min'      => 1,
-											'max'      => 100,
+											'max'      => 174,
 									),
 							),
 					),
@@ -131,36 +131,18 @@ class Videos implements InputFilterAwareInterface
 									'options' => array(
 											'encoding' => 'UTF-8',
 											'min'      => 1,
-											'max'      => 75,
+											'max'      => 50,
 									),
 							),
 					),
 			));
 			
-			
-			$inputFilter->add(array(
-					'name'     => 'embed_code',
-					'required' => false,
-					'filters'  => array(
-							array('name' => 'StripTags'),
-							array('name' => 'StringTrim'),
-					),
-					'validators' => array(
-							array(
-									'name'    => 'StringLength',
-									'options' => array(
-											'encoding' => 'UTF-8',
-											'min'      => 1,
-											'max'      => 10,
-									),
-							),
-					),
-			));
+
 			
 			
 			
 			$inputFilter->add(array(
-					'name'     => 'published',
+					'name'     => 'publish',
 					'required' => true,
 					'filters'  => array(
 							array('name' => 'StripTags'),
@@ -172,7 +154,7 @@ class Videos implements InputFilterAwareInterface
 									'options' => array(
 											'encoding' => 'UTF-8',
 											'min'      => 1,
-											'max'      => 1,
+											'max'      => 100,
 									),
 							),
 					),

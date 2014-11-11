@@ -2,7 +2,8 @@
   <?php
 	$form = $this->editVideoForm;
 	$video = $this->video;
-    $form->setAttribute('action', $this->url('admin', array('action' => 'admin-edit-video')));
+    $form->setAttribute('action', $this->url('admin', array('action' => 'admin-edit-video',
+                                                            'id'=>$this->id)));
     $form->prepare();
   ?>
 <div class="well box-body">
@@ -51,10 +52,23 @@
     <?php echo $this->formRow($form->get('runtime'));?>
    </div>
 		</div>
-
-		<div class="form-group">
+		
+		
+				<div class="form-group">
 			<div class="input-group">
-    <?php echo $this->formRow($form->get('embed_code'));?>
+    <?php echo $this->formRow($form->get('views'));?>
+   </div>
+		</div>
+		
+		
+						<div class="form-group">
+			<div class="input-group">
+    <?php echo $this->formRow($form->get('video_src'));?>
+   </div>
+		</div>
+						<div class="form-group">
+			<div class="input-group">
+    <?php echo $this->formRow($form->get('video_path'));?>
    </div>
 		</div>
 

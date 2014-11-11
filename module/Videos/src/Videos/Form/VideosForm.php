@@ -11,10 +11,12 @@ class VideosForm extends Form{
 	}
 	
 	public function initialize(){	
+		
 		$this->add(array(
 				'name' => 'id',
 				'type' => 'Hidden',
 		));
+		
 		$this->add(array(
 				'name' => 'title',
 				'type' => 'Text',
@@ -40,18 +42,6 @@ class VideosForm extends Form{
 		));
 		
 		$this->add(array(
-				'name' => 'runtime',
-				'type' => 'Text',
-				'options' => array(
-						'label' => 'Runtime',
-				),
-				'attributes' => array(
-						'class'  => 'form-control',
-						'placeholder'=>'Enter runtime',
-				),
-		));
-		
-		$this->add(array(
 				'name'    => 'category_id',
 				'type'    => 'Zend\Form\Element\Select',
 				'options' => array(
@@ -62,18 +52,56 @@ class VideosForm extends Form{
 				'attributes' => array(
 						'class'  => 'form-control',
 				),
-				
+		
+		));
+		
+		$this->add(array(
+				'name' => 'runtime',
+				'type' => 'Text',
+				'options' => array(
+						'label' => 'Runtime',
+				),
+				'attributes' => array(
+						'class'  => 'form-control',
+						'placeholder'=>'Enter runtime',
+				),
+		));
+	
+		$this->add(array(
+				'name' => 'views',
+				'type' => 'Text',
+				'options' => array(
+						'label' => 'views',
+				),
+				'attributes' => array(
+						'class'  => 'form-control',
+						'placeholder'=>'Enter runtime',
+				),
 		));
 		
 		
 		$this->add(array(
-				'name' => 'embed_code',
-				'type' => 'TextArea',
+				'name' => 'video_src',
+				'type' => 'Text',
 				'options' => array(
-						'label' => 'Embed Code',
+						'label' => 'Embed src',
 				),
 				'attributes' => array(
 						'class'  => 'form-control',
+						'placeholder'=>'Enter runtime',
+				),
+		));
+		
+		
+		$this->add(array(
+				'name' => 'video_path',
+				'type' => 'Text',
+				'options' => array(
+						'label' => 'path',
+				),
+				'attributes' => array(
+						'class'  => 'form-control',
+						'placeholder'=>'Enter runtime',
 				),
 		));
 		

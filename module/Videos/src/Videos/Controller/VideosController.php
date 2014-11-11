@@ -78,7 +78,7 @@ class VideosController extends AbstractActionController {
     	// Get the Album with the specified id.  An exception is thrown
     	// if it cannot be found, in which case go to the index page.
     	try {
-    		$videoToplay = $this->getVideosTable()->getVideoSigle($id);
+    		$videoToplay = $this->getVideosTable()->getVideoSigle($id,true);
     	
     	}
     	catch (\Exception $ex) {

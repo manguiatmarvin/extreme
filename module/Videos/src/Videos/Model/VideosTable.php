@@ -34,6 +34,33 @@ class VideosTable {
 	}
 	
 	
+	
+	public function saveVideo(Videos $video){
+		$data = array(
+				'title' => $video->title,
+				'desc'  => $video->desc,
+				'runtime'  => $video->runtime,
+				'category_id'=>$video->category_id,
+				'embed_code'  => $video->embed_code,
+				'publish'  => $video->publish,
+				'views' => $video->views,
+				'video_src'=>$video->video_src,
+				'video_path'=>$video->video_path
+		);
+	
+		$id = (int) $video->id;
+		if ($id == 0) {
+			$this->tableGateway->insert($data);
+		} else {
+			if ($this->getVideoSigle($id,true)) {
+				$this->tableGateway->update($data, array('id' => $id));
+			} else {
+				throw new \Exception('Video id does not exist');
+			}
+		}
+	}
+	
+	
 	public function getVideoSigle($id,$allowUnpublished=false){
 		
 		$rowSet = $this->tableGateway->select(array('id'=>$id));
