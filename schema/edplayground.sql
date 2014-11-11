@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 11, 2014 at 06:45 PM
+-- Generation Time: Nov 11, 2014 at 10:03 PM
 -- Server version: 5.5.38-0ubuntu0.14.04.1-log
 -- PHP Version: 5.5.9-1ubuntu4.4
 
@@ -98,13 +98,13 @@ INSERT INTO `users` (`id`, `user_name`, `pass_word`, `email`, `role`) VALUES
 CREATE TABLE IF NOT EXISTS `video` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(175) NOT NULL,
-  `desc` text NOT NULL,
-  `category_id` int(11) NOT NULL,
+  `desc` text,
+  `category_id` int(11) DEFAULT NULL,
   `runtime` varchar(50) NOT NULL,
   `embed_code` text,
   `video_src` varchar(500) NOT NULL,
   `video_path` text NOT NULL,
-  `thumbnail` varchar(255) NOT NULL,
+  `thumbnail` varchar(255) DEFAULT NULL,
   `uploaded` datetime NOT NULL,
   `modified` datetime NOT NULL,
   `views` int(11) NOT NULL DEFAULT '0',
@@ -119,8 +119,8 @@ CREATE TABLE IF NOT EXISTS `video` (
 --
 
 INSERT INTO `video` (`id`, `title`, `desc`, `category_id`, `runtime`, `embed_code`, `video_src`, `video_path`, `thumbnail`, `uploaded`, `modified`, `views`, `likes`, `dislikes`, `publish`) VALUES
-(1, 'Paul Gilbert', 'Paul Gilbert & Freddie Nelson - Let It Be (LIVE)', 3, '20:10', '<video width="400" controls>\r\n  <source src="http://xpedler.com/videos/serv/1" type="video/mp4">\r\n  Your browser does not support HTML5 video.\r\n</video>', 'http://173.45.66.115/serv/serv.php?id=1', '/videos/2014/10/video_1.mp4', '/img/thumbnails/vids/2014/10/sample320x200.png', '2014-10-28 10:24:11', '2014-09-23 00:00:00', 1060, 12, 10, 1),
-(2, 'Paul Gilbert', 'From licklibrary.com another piece ', 2, '30:41', '<iframe width="560" height="315" src="//www.youtube.com/embed/zU_KoxFQd64" frameborder="0" allowfullscreen></iframe>', 'http://173.45.66.115/serv/serv.php?id=2', '/videos/2014/10/video_2.mp4', '/img/thumbnails/vids/2014/10/sample320x200.png', '2014-02-02 04:10:11', '2014-10-20 00:00:00', 100, 15, 6, 1),
+(1, 'Paul Gilbert', 'Paul Gilbert & Freddie Nelson - Let It Be (LIVE)', 3, '20:10', '<video width="400" controls>\r\n  <source src="http://xpedler.com/videos/serv/1" type="video/mp4">\r\n  Your browser does not support HTML5 video.\r\n</video>', 'http://173.45.66.115/serv/serv.php?id=1', '/videos/2014/10/video_1.mp4', '/img/thumbnails/vids/2014/10/sample320x200.png', '2014-10-28 10:24:11', '2014-09-23 00:00:00', 1060, 12, 10, 0),
+(2, 'Paul Gilbert', 'From licklibrary.com another piece ', 2, '30:41', '', 'http://173.45.66.115/serv/serv.php?id=2', '/videos/2014/10/video_2.mp4', '/img/thumbnails/vids/2014/10/sample320x200.png', '2014-02-02 04:10:11', '2014-10-20 00:00:00', 100, 15, 6, 1),
 (3, 'Paul Gilbert', 'Far Beyond The Sun played by Yngwie Malmsteen', 1, '6:00', '<iframe width="420" height="315" src="//www.youtube.com/embed/eK0rvReE-4c" frameborder="0" allowfullscreen></iframe>', '/videos/2014/10/video_1.mp4', '', '/img/thumbnails/vids/2014/10/sample320x200-1.png', '2014-09-28 04:10:11', '0000-00-00 00:00:00', 108, 0, 0, 1),
 (4, 'YNGWIE MALMSTEEN Live [HD] Black Star', 'YNGWIE MALMSTEEN Live [HD] Black Star', 3, '10:46', '<iframe width="420" height="315" src="//www.youtube.com/embed/QvMKsgVBzMo" frameborder="0" allowfullscreen></iframe>', '/videos/2014/10/video_1.mp4', '', '/img/thumbnails/vids/2014/10/sample320x200-1.png', '2014-10-20 00:00:00', '2014-10-20 00:00:00', 77, 6, 3, 1),
 (5, 'Steve Vai Tender Surrender full HD', '2009 Where the Wild Things Are DVD', 3, '4:39', '<iframe width="560" height="315" src="//www.youtube.com/embed/_Tp7RHzm9x0" frameborder="0" allowfullscreen></iframe>', '/videos/2014/10/video_4.mp4', '', '/img/thumbnails/vids/2014/10/sample320x200-3.png', '2014-10-22 00:00:00', '2014-10-20 00:00:00', 15, 0, 0, 1),
