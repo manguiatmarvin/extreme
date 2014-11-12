@@ -67,8 +67,8 @@ class AdminController extends AbstractActionController {
 			}
 		}
 	
-		
-		return new ViewModel(array('videos'=>$this->getVideosTable()->getAllVideos(),
+		$videos = $this->getVideosTable()->getAllVideos();
+		return new ViewModel(array('videos'=>$videos,
 	                              'addVideoForm' => $form));
 	}
 	
