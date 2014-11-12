@@ -14,6 +14,7 @@ return array (
 				'login/process',
 				'admin-login',
 				 'auth',
+				'paginator'
 		),
 		'admin' => array (
 				'admin',
@@ -39,6 +40,7 @@ return array (
 				'login',
 				'login/process',
 				'admin-login',
-				'auth'
+				'auth',
+				'paginator'
 		),		 
 );
