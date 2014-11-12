@@ -77,7 +77,6 @@ class Videos implements InputFilterAwareInterface
 							array('name' => 'Int'),
 					),
 			));
-
 	
 			$inputFilter->add(array(
 					'name'     => 'title',
@@ -137,9 +136,6 @@ class Videos implements InputFilterAwareInterface
 					),
 			));
 			
-
-			
-			
 			
 			$inputFilter->add(array(
 					'name'     => 'publish',
@@ -159,6 +155,7 @@ class Videos implements InputFilterAwareInterface
 							),
 					),
 			));
+			
 			
 	
 			$this->inputFilter = $inputFilter;

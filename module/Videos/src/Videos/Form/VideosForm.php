@@ -1,6 +1,7 @@
 <?php 
 namespace Videos\Form;
 use Zend\Form\Form;
+use Zend\InputFilter;
 
 class VideosForm extends Form{
 	protected $optionSelect;
@@ -78,7 +79,7 @@ class VideosForm extends Form{
 						'placeholder'=>'Enter runtime',
 				),
 		));
-		
+
 		
 		$this->add(array(
 				'name' => 'video_src',
@@ -118,14 +119,56 @@ class VideosForm extends Form{
 				),
 		));
 		
+		
+
+		$this->add ( array (
+				'name' => 'video-file',
+				'type' => 'File',
+				'options' => array (
+						'label' => 'Video File'
+				),
+				'attributes' => array (
+						'class' => 'form-control'
+				)
+		) );
+		
+		
 		$this->add(array(
 				'name' => 'submit',
 				'type' => 'Submit',
 				'attributes' => array(
 						'value' => 'Go',
 						'id' => 'submitbutton',
+						'class'  => 'form-control',
 				),
 		));
+		
+		$this->addInputFilter();
+	}
+	
+	
+	
+	public function addInputFilter()
+	{
+		$inputFilter = new InputFilter\InputFilter();
+	
+		// File Input
+		$fileInput = new InputFilter\FileInput('video-file');
+		$fileInput->setRequired(false);
+		$fileInput->getFilterChain()->attachByName(
+				'filerenameupload',
+				array(
+						'target'    => './data/uploads/avatar.mp4',
+						'randomize' => true,
+				)
+		);
+		$inputFilter->add($fileInput);
+		
+		
+		
+		
+	
+		$this->setInputFilter($inputFilter);
 	}
 	
 	

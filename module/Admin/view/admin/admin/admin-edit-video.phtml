@@ -44,7 +44,7 @@ echo $this->render('flashmessenger/layout') ?>
 												<td><?php echo $v->views;?></td>
 												<td><?php echo $v->cat_name;?></td>
 												<td><span class="label <?php echo ($v->publish)? "label-success":"label-danger"?>"><?php echo ($v->publish)? "live":"inactive"?></span></td>
-												<td><a href="">Delete</a> | <a href="<?php echo $this->url('admin',array('action'=>'admin-edit-video','id'=>$v->id));?>">Update</a> | <a href="">re-upload</a></td>
+												<td><a href=""><i class="fa fa-times" title="delete"></i></a> | <a href="<?php echo $this->url('admin',array('action'=>'admin-edit-video','id'=>$v->id));?>"><i class="fa fa-pencil" title="update"></i></a> | <a href=""><i class="fa fa-rotate-left" title="re-upload"></i></a></td>
 											</tr>
 											<?php endforeach;?>										
 										</table>

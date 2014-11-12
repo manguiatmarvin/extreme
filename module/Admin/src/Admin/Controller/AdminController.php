@@ -6,7 +6,7 @@ use Zend\View\Model\ViewModel;
 use Videos\Module;
 use Videos\Form\VideosForm;
 use Videos\Controller\VideosController;
-
+use Videos\Model\Videos;
 
 class AdminController extends AbstractActionController {
 	protected $videosTable;
@@ -16,8 +16,60 @@ class AdminController extends AbstractActionController {
 	}
 	
 	public function ManageVideosAction() {
+		$form  = new VideosForm();
+		$form->setOptionSelect($this->getVideosTable()->getCategoryArray());
+		$form->initialize();
+		$form->get('submit')->setAttribute('value', 'Add');
+		$tempFile = null;
 		
-	  return new ViewModel(array('videos'=>$this->getVideosTable()->getAllVideos(),));
+		$prg = $this->fileprg($form);
+		if ($prg instanceof \Zend\Http\PhpEnvironment\Response) {
+			return $prg; // Return PRG redirect response
+		} elseif (is_array($prg)) {
+			if ($form->isValid()) {
+				$data = $form->getData();
+				// Form is valid, save the form!
+				//debug
+				
+				$generatedFile = $data["video-file"]["tmp_name"];
+				$title = $data["title"];
+				$desc = $data["desc"];
+				
+			   $command = escapeshellarg($generatedFile).' '.escapeshellarg($title).' '.escapeshellarg($desc).' ';
+			   exec('java -jar ./third_party/java/VConvert.jar '.$command, $out);
+			   echo "jar executed ";
+			   echo "<br/>";
+			   print_r($out);
+			   echo "<br/>";
+			   
+			   echo "File: ".$generatedFile."<br/>";
+			   echo "title: ".$title.'<br/>';
+			   echo "desc: ".$desc.'<br/>';
+			   exit;
+			   
+			  //process the video 
+			  // detect video if MP4 
+			  // if Mp4 proceed to generating the thumnails and getting the runtime
+			  // if not Mp4 proceed to convertion 
+			  
+				$this->flashmessenger()->addErrorMessage("valid Form");
+				return $this->redirect()->toRoute('admin',array('action'=>'manage-videos'));
+			} else {
+				// Form not valid, but file uploads might be valid...
+				// Get the temporary file information to show the user in the view
+				$fileErrors = $form->get('video-file')->getMessages();
+				if (empty($fileErrors)) {
+					$tempFile = $form->get('video-file')->getValue();
+				}
+				
+				$this->flashmessenger()->addErrorMessage("Invalid Form");
+				return $this->redirect()->toRoute('admin',array('action'=>'manage-videos'));
+			}
+		}
+	
+		
+		return new ViewModel(array('videos'=>$this->getVideosTable()->getAllVideos(),
+	                              'addVideoForm' => $form));
 	}
 	
 	public function AdminEditVideoAction(){

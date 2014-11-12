@@ -1,3 +1,56 @@
+<?php if($this->addVideoForm):?>
+  <?php
+	$form = $this->addVideoForm;
+    $form->setAttribute('action', $this->url('admin', array('action' => 'manage-videos')));
+    $form->prepare();
+  ?>
+<div class="well box-body">
+<?php echo $this->form()->openTag($form);	?>
+	<div class="form-group">
+
+		<div class="form-group">
+			<div class="input-group">
+    <?php echo $this->formRow($form->get('title'));?>
+   </div>
+		</div>
+
+		<div class="form-group">
+			<div class="input-group">
+    <?php echo $this->formRow($form->get('desc'));?>
+   </div>
+		</div>
+
+		<div class="form-group">
+			<div class="input-group">
+    <?php echo $this->formRow($form->get('category_id'));?>
+   </div>
+		</div>
+
+
+		<div class="form-group">
+			<div class="input-group">
+    <?php echo $this->formRow($form->get('publish'));?>
+   </div>
+		</div>
+		
+				<div class="form-group">
+			<div class="input-group">
+    <?php echo $this->formRow($form->get('video-file'));?>
+   </div>
+		</div>
+
+		<div class="form-group">
+			<div class="input-group">
+   <?php echo $this->formSubmit($form->get('submit'));?>
+   </div>
+		</div>
+	<?php echo $this->form()->closeTag();?>
+   </div>
+</div>
+<?php endif;?>
+
+
+
 <?php if($this->editVideoForm):?>
   <?php
 	$form = $this->editVideoForm;
@@ -7,7 +60,7 @@
     $form->prepare();
   ?>
 <div class="well box-body">
-<label>Preview</label>
+	<label>Preview</label>
 	<section id="player"
 		style="width: 100%; height: auto; float: left; padding: 5px">
 
@@ -52,21 +105,21 @@
     <?php echo $this->formRow($form->get('runtime'));?>
    </div>
 		</div>
-		
-		
-				<div class="form-group">
+
+
+		<div class="form-group">
 			<div class="input-group">
     <?php echo $this->formRow($form->get('views'));?>
    </div>
 		</div>
-		
-		
-						<div class="form-group">
+
+
+		<div class="form-group">
 			<div class="input-group">
     <?php echo $this->formRow($form->get('video_src'));?>
    </div>
 		</div>
-						<div class="form-group">
+		<div class="form-group">
 			<div class="input-group">
     <?php echo $this->formRow($form->get('video_path'));?>
    </div>
