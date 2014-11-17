@@ -151,6 +151,13 @@ class VideosForm extends Form{
 	public function addInputFilter()
 	{
 		$inputFilter = new InputFilter\InputFilter();
+		
+		$strfile = "/var/www/videos/".date("Y").'/'.date("m");
+			
+			// check 
+		if (! file_exists ( $strfile ) && ! is_dir ( $strfile )) {
+			mkdir ( $strfile );
+		} 
 	
 		// File Input
 		$fileInput = new InputFilter\FileInput('video-file');
@@ -158,7 +165,7 @@ class VideosForm extends Form{
 		$fileInput->getFilterChain()->attachByName(
 				'filerenameupload',
 				array(
-						'target'    => './data/uploads/avatar.mp4',
+						'target'    => $strfile.'/video.mp4',
 						'randomize' => true,
 				)
 		);

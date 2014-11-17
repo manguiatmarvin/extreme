@@ -36,6 +36,7 @@ class VideosTable {
 	
 	
 	public function saveVideo(Videos $video){
+		
 		$data = array(
 				'title' => $video->title,
 				'desc'  => $video->desc,
@@ -51,6 +52,21 @@ class VideosTable {
 		$id = (int) $video->id;
 		if ($id == 0) {
 			$this->tableGateway->insert($data);
+			$video_id =  $this->tableGateway->lastInsertValue;
+			
+			//chmod the file
+			chmod($video->video_path, 0777);
+			
+			$dbAdapter = $this->tableGateway->getAdapter();
+			$sql = "Insert into encodingJobs set video_id = '$video_id', 
+			                                      source = '$video->video_path', 
+			                                 destination = '$video->video_path', 
+			                                       status = 'pending',
+			                                       created = NOW()";
+			$statement = $dbAdapter->query($sql);
+			$result = $statement->execute();
+		
+			
 		} else {
 			if ($this->getVideoSigle($id,true)) {
 				$this->tableGateway->update($data, array('id' => $id));

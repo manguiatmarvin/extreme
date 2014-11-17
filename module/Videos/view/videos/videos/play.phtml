@@ -92,7 +92,7 @@ function dateDiff($time1, $time2, $precision = 6) {
 						<video id="<?php echo  $video->id?>" class="video-js vjs-default-skin vjs-big-play-centered" controls
  preload="auto" width="auto" height="auto" poster="<?php echo $video->thumbnail; ?>"
  data-setup="{}">
- <source src="<?php echo $video->video_src ?>" type='video/mp4'>
+ <source src="<?php echo "http://173.45.66.115/serv/serv.php?id=".$video->id ?>" type='video/mp4'>
  <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
                         </video>
                         

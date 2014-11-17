@@ -28,31 +28,14 @@ class AdminController extends AbstractActionController {
 		} elseif (is_array($prg)) {
 			if ($form->isValid()) {
 				$data = $form->getData();
-				// Form is valid, save the form!
-				//debug
-				
-				$generatedFile = $data["video-file"]["tmp_name"];
-				$title = $data["title"];
-				$desc = $data["desc"];
-				
-			   $command = escapeshellarg($generatedFile).' '.escapeshellarg($title).' '.escapeshellarg($desc).' ';
-			   exec('java -jar ./third_party/java/VConvert.jar '.$command, $out);
-			   echo "jar executed ";
-			   echo "<br/>";
-			   print_r($out);
-			   echo "<br/>";
-			   
-			   echo "File: ".$generatedFile."<br/>";
-			   echo "title: ".$title.'<br/>';
-			   echo "desc: ".$desc.'<br/>';
-			   exit;
-			   
-			  //process the video 
-			  // detect video if MP4 
-			  // if Mp4 proceed to generating the thumnails and getting the runtime
-			  // if not Mp4 proceed to convertion 
+				$video = new Videos();
+				$video->title = $data["title"];
+				$video->desc = $data["desc"];
+				$video->video_path = $data["video-file"]["tmp_name"];
+				$video->category_id = $data['category_id'];
+				$this->getVideosTable()->saveVideo($video);
 			  
-				$this->flashmessenger()->addErrorMessage("valid Form");
+				$this->flashmessenger()->addErrorMessage("Video added successfully");
 				return $this->redirect()->toRoute('admin',array('action'=>'manage-videos'));
 			} else {
 				// Form not valid, but file uploads might be valid...
