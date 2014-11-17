@@ -4,9 +4,16 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
+
+import com.Xconvert.Main;
+
+
 public class Convert{
+	static Logger log = Logger.getLogger(
+			 Main.class.getName());
 	
-	protected int id;
+	protected int jobId;
 	protected String vsource;
 	protected String vdestination;
 	
@@ -14,21 +21,34 @@ public class Convert{
 	Process p =null;
 	
 	public Convert(int id, String src, String dest){
-		System.out.println("Convertion initialized...");
 		this.vsource = src;
 		this.vdestination = dest;
-		this.id = id;
-		this.pb = new ProcessBuilder("ffmpeg","-i",this.getVsource() ,this.getVdestination(),"-y");
+		this.jobId = id;
 		
-	    try {
+	}
+	
+	public Boolean startConvert(){
+		 this.pb = new ProcessBuilder("ffmpeg",
+				                         "-i",
+				           this.getVsource(),
+				           "-c:v",
+				           "libx264",
+				           "-s",
+				           "320x240",
+				           "-c:a",
+				           "libmp3lame",
+				           "-b:a",
+				           "160k",
+				           this.getVdestination(),
+				           "-y");
+		 
+		 try {
 			 this.p = this.pb.start();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	
-	public int startConvert() {
+		 
 		// TODO Auto-generated method stub
 		  Scanner sc = new Scanner(this.p.getErrorStream());
 		  
@@ -41,7 +61,7 @@ public class Convert{
           double totalSecs = Integer.parseInt(hms[0]) * 3600
                            + Integer.parseInt(hms[1]) *   60
                            + Double.parseDouble(hms[2]);
-          System.out.println("Total duration: " + totalSecs + " seconds.");
+          log.debug("Total duration: " + totalSecs + " seconds.");
 
           // Find time as long as possible.
           Pattern timePattern = Pattern.compile("(?<=time=)[\\d:.]*");
@@ -53,10 +73,37 @@ public class Convert{
                   Integer.parseInt(matchSplit[1]) * 60 +
                   Double.parseDouble(matchSplit[2]);
               progress = progress / totalSecs;
-            System.out.printf("Progress: %.2f%%%n", progress * 100);
+              log.debug(Math.round(progress * 100)+" % Completed");
           }
           
-       return this.getId();   
+       return true;   
+	}
+	
+	
+	public void createThumbnail(){
+		//ffmpeg -i video_2.mp4  -ss 00:00:14.435 -f image2 -vframes 1  -s 160x120  video_2xxx.png
+		 this.pb = new ProcessBuilder("ffmpeg",
+				                      "-i",
+				                      this.getVsource(),
+				                      "-ss",
+				                      "00:00:14.435",
+				                      "-f",
+				                      "image2",
+				                      "-vframes",
+				                      "1",
+				                      "-s",
+				                      "160x120",
+				                      this.getVdestination()+".png",
+				                      "-y");
+		 
+		 try {
+			 this.p = this.pb.start();
+			 
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	
 	
@@ -80,13 +127,13 @@ public class Convert{
 		this.vdestination = vdestination;
 	}
 	
-	public int getId() {
-		return id;
+	public int getJobId() {
+		return this.jobId;
 	}
 
 
-	public void setId(int id) {
-		this.id = id;
+	public void setJobId(int id) {
+		this.jobId = id;
 	}
 
 }
