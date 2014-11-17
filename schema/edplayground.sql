@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 11, 2014 at 11:23 PM
+-- Generation Time: Nov 17, 2014 at 11:22 PM
 -- Server version: 5.5.38-0ubuntu0.14.04.1-log
 -- PHP Version: 5.5.9-1ubuntu4.4
 
@@ -41,6 +41,30 @@ INSERT INTO `category` (`id`, `category_name`) VALUES
 (2, 'Progressive Rock'),
 (3, 'pop'),
 (4, 'musical');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `encodingJobs`
+--
+
+CREATE TABLE IF NOT EXISTS `encodingJobs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `source` text NOT NULL,
+  `destination` text NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `created` datetime NOT NULL,
+  `command` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `encodingJobs`
+--
+
+INSERT INTO `encodingJobs` (`id`, `source`, `destination`, `status`, `created`, `command`) VALUES
+(1, '/var/www/videos/2014/10/video_1.mp4', '/var/www/videos/2014/10/video_1encoded.flv', 'completed', '2014-11-17 00:00:00', 'ffmpeg -i /var/www/videos/2014/10/video_1.mp4 /var/www/videos/2014/10/video_1encoded.flv'),
+(2, '/var/www/videos/2014/10/video_2.mp4', '/var/www/videos/2014/10/video_2encoded.flv', 'completed', '2014-11-17 00:00:00', 'ffmpeg -i /var/www/videos/2014/10/video_2.mp4 /var/www/videos/2014/10/video_2encoded.flv');
 
 -- --------------------------------------------------------
 
