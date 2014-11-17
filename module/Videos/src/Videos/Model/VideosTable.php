@@ -46,7 +46,8 @@ class VideosTable {
 				'publish'  => $video->publish,
 				'views' => $video->views,
 				'video_src'=>$video->video_src,
-				'video_path'=>$video->video_path
+				'video_path'=>$video->video_path,
+				'thumbnail'=>$video->video_path.'.png',
 		);
 	
 		$id = (int) $video->id;
@@ -57,10 +58,20 @@ class VideosTable {
 			//chmod the file
 			chmod($video->video_path, 0777);
 			
+			$src = $video->video_path;
+			$dest = $video->video_path.".mp4";
+			
+			$strfile = "./public/img/thumbnails/vids/".date("Y").'/'.date("m");
+			
+			if (! file_exists ( $strfile ) && ! is_dir ( $strfile )) {
+				mkdir ( $strfile );
+				chmod($strfile, 0775);
+			}
+			
 			$dbAdapter = $this->tableGateway->getAdapter();
 			$sql = "Insert into encodingJobs set video_id = '$video_id', 
-			                                      source = '$video->video_path', 
-			                                 destination = '$video->video_path', 
+			                                      source = '$src', 
+			                                 destination = '$dest', 
 			                                       status = 'pending',
 			                                       created = NOW()";
 			$statement = $dbAdapter->query($sql);
