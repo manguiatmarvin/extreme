@@ -108,6 +108,19 @@ class VideosForm extends Form{
 		
 		
 		$this->add(array(
+				'name' => 'thumbnail',
+				'type' => 'Text',
+				'options' => array(
+						'label' => 'thumbnail',
+				),
+				'attributes' => array(
+						'class'  => 'form-control',
+						'placeholder'=>'',
+				),
+		));
+		
+		
+		$this->add(array(
 				'name' => 'publish',
 				'type' => 'Checkbox',
 				'options' => array(
@@ -150,16 +163,19 @@ class VideosForm extends Form{
 	
 	public function addInputFilter()
 	{
+		
+		
 		$inputFilter = new InputFilter\InputFilter();
 		
-		$strfile = "/var/www/videos/".date("Y").'/'.date("m");
-		$strfilePublic = "./public/img/thumbnails/vids/".date("Y").'/'.date("m");
+		$strfile =  ROOT_PATH.'/data/videos/'.date("Y").'/'.date("m");
+		$strfilePublic = ROOT_PATH.'/public/img/thumbnails/vids/'.date("Y").'/'.date("m");
 			
 			// check 
 		if (! file_exists ( $strfile ) && ! is_dir ( $strfile )) {
 			mkdir ( $strfile );
 			mkdir($strfilePublic);
 			chmod($strfile, 0777);
+			chmod($strfilePublic, 0777);
 		} 
 	
 		// File Input

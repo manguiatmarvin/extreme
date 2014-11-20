@@ -68,7 +68,7 @@
 			class="video-js vjs-default-skin vjs-big-play-centered" controls
 			preload="auto" width="auto" height="auto"
 			poster="<?php echo $video->thumbnail; ?>" data-setup="{}">
-			<source src="<?php echo $video->video_src ?>" type='video/mp4'>
+			<source src="<?php echo 'http://'.$_SERVER['SERVER_ADDR']."/serv/serv.php?id=".$video->id ?>" type='video/mp4'>
 			<p class="vjs-no-js">
 				To view this video please enable JavaScript, and consider upgrading
 				to a web browser that <a
@@ -128,6 +128,12 @@
 		<div class="form-group">
 			<div class="input-group">
     <?php echo $this->formRow($form->get('publish'));?>
+   </div>
+		</div>
+		
+				<div class="form-group">
+			<div class="input-group">
+    <?php echo $this->formRow($form->get('thumbnail'));?>
    </div>
 		</div>
 

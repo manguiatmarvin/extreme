@@ -47,13 +47,17 @@ class VideosTable {
 				'views' => $video->views,
 				'video_src'=>$video->video_src,
 				'video_path'=>$video->video_path,
-				'thumbnail'=>$video->video_path.'.png',
+				'thumbnail'=>$video->thumbnail,
 		);
 	
 		$id = (int) $video->id;
-		if ($id == 0) {
+		if (!$id) {
 			$this->tableGateway->insert($data);
+			
+			$strfile = "/img/thumbnails/vids/".date("Y").'/'.date("m");
 			$video_id =  $this->tableGateway->lastInsertValue;
+			
+			$this->updateVideoThumbnail($video_id,$strfile);
 			
 			//chmod the file
 			chmod($video->video_path, 0777);
@@ -61,11 +65,11 @@ class VideosTable {
 			$src = $video->video_path;
 			$dest = $video->video_path.".mp4";
 			
-			$strfile = "./public/img/thumbnails/vids/".date("Y").'/'.date("m");
+		
 			
 			if (! file_exists ( $strfile ) && ! is_dir ( $strfile )) {
 				mkdir ( $strfile );
-				chmod($strfile, 0775);
+				chmod($strfile, 0777);
 			}
 			
 			$dbAdapter = $this->tableGateway->getAdapter();
@@ -76,6 +80,8 @@ class VideosTable {
 			                                       created = NOW()";
 			$statement = $dbAdapter->query($sql);
 			$result = $statement->execute();
+			
+		
 		
 			
 		} else {
@@ -87,6 +93,15 @@ class VideosTable {
 		}
 	}
 	
+	
+	public function updateVideoThumbnail($video_id,$thumbnail_path){
+		$thumbnail_path = $thumbnail_path.'/'.$video_id.'.png';
+		$dbAdapter = $this->tableGateway->getAdapter();
+		$sql = "Update video set thumbnail = '$thumbnail_path'  Where id = $video_id";
+		$statement = $dbAdapter->query($sql);
+		$result = $statement->execute();
+		
+	}
 	
 	public function getVideoSigle($id,$allowUnpublished=false){
 		
