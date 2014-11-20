@@ -1,5 +1,6 @@
 package com.Xconvert.jobs;
 
+import java.io.File;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,7 +10,7 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.apache.log4j.Logger;
-
+import java.text.SimpleDateFormat;
 import com.Xconvert.Main;
 
 public class JobDaemon implements Job{
@@ -46,6 +47,7 @@ public class JobDaemon implements Job{
 		        Date dateCreated = rs.getDate("created");
 		        String status  = rs.getString("status");
 		        String command  = rs.getString("command");
+		        int video_id = rs.getInt("video_id");
 		        
 		        log.info("Found pending job "+jobId);
 		    
@@ -57,16 +59,37 @@ public class JobDaemon implements Job{
 					
 					stmtUpdate.executeUpdate(updateQuery);
 
-					c = new Convert(jobId, source, destination);
+					c = new Convert(jobId, video_id, source, destination);
 					Boolean convertionRes = c.startConvert();
                     
 		 			if (convertionRes) {
 						stmtUpdate
 								.executeUpdate("UPDATE  `edplayground`.`encodingJobs` SET  `status` =  'completed' WHERE  `encodingJobs`.`job_id` = "
 										+ jobId);
+						log.debug("Creating public folders....");
+						
+					
+						String monthString = new SimpleDateFormat("MM").format(new Date());
+						String yearString = new SimpleDateFormat("YYYY").format(new Date());
+						
+                        String folder = "../public/img/thumbnails/vids/"+yearString+"/"+monthString+"/";
+                       
+                        log.debug("Multiple directories will be created at "+folder);
+						File files = new File(folder);
+						if (!files.exists()) {
+							if (files.mkdirs()) {
+								log.debug("Multiple directories are created! "+folder);
+							
+							} else {
+								log.debug("Failed to create multiple directories!");
+							}
+						}
+						
 						log.debug("Creating thumbnail...."); 
-						c.createThumbnail();
-						log.debug("Thumbnail Created...."); 
+						String thumbnail = c.createThumbnail(folder);
+						
+						log.debug("Thumbnail Created...."+thumbnail); 
+					
 
 					}
 

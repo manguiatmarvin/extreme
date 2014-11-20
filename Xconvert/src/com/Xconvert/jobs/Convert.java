@@ -1,6 +1,7 @@
 package com.Xconvert.jobs;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -16,15 +17,17 @@ public class Convert{
 	protected int jobId;
 	protected String vsource;
 	protected String vdestination;
+	protected int video_id;
 	
 	ProcessBuilder pb;
 	Process p =null;
 	
-	public Convert(int id, String src, String dest){
+	public Convert(int id, int vid, String src, String dest){
 		this.vsource = src;
 		this.vdestination = dest;
 		this.jobId = id;
-		
+		this.video_id = vid;
+	
 	}
 	
 	public Boolean startConvert(){
@@ -80,9 +83,13 @@ public class Convert{
 	}
 	
 	
-	public void createThumbnail(){
+	public String createThumbnail(String fldr){
 		//ffmpeg -i video_2.mp4  -ss 00:00:14.435 -f image2 -vframes 1  -s 160x120  video_2xxx.png
-		 this.pb = new ProcessBuilder("ffmpeg",
+		 //creates nessesssary folders
+		int year = Calendar.getInstance().get(Calendar.YEAR);
+		int month = Calendar.getInstance().get(Calendar.MONTH);
+		
+		this.pb = new ProcessBuilder("ffmpeg",
 				                      "-i",
 				                      this.getVsource(),
 				                      "-ss",
@@ -93,8 +100,11 @@ public class Convert{
 				                      "1",
 				                      "-s",
 				                      "160x120",
-				                      this.getVdestination()+".png",
+				                      fldr+this.getVideoId()+".png",
 				                      "-y");
+		 
+		 //copy the created thumbnail to public folder
+		 
 		 
 		 try {
 			 this.p = this.pb.start();
@@ -104,6 +114,7 @@ public class Convert{
 			e.printStackTrace();
 		}
 		
+		 return fldr+this.getVideoId()+".png";
 	}
 	
 	
@@ -134,6 +145,14 @@ public class Convert{
 
 	public void setJobId(int id) {
 		this.jobId = id;
+	}
+	
+	public int getVideoId(){
+		return this.video_id;
+	}
+	
+	public void setVideoId(int id){
+		this.video_id = id;
 	}
 
 }
