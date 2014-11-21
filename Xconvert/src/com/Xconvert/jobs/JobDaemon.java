@@ -67,10 +67,12 @@ public class JobDaemon implements Job{
 						stmtUpdate
 								.executeUpdate("UPDATE  `edplayground`.`encodingJobs` SET  `status` =  'completed' WHERE  `encodingJobs`.`job_id` = "
 										+ jobId);
+						
+						
 						log.debug("Creating thumbnail...."); 
 						log.debug("Thumbnail Created...."+c.createThumbnail()); 
-					
-
+						log.debug("Deleting original file...");
+						new File(source).delete();
 					}
 
 				} 

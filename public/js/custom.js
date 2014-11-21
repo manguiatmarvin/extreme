@@ -33,6 +33,7 @@ $(function() {
 	
 	$('#vplay-add-likes').click(function(e) {
 		e.preventDefault();
+		
 		$(this).prop('disabled', true);
 		var _id = $('input:hidden[name=player_video_id]').val();
 		var _url = "/videos/add-video-likes-json/"+_id;
