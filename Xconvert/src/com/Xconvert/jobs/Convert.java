@@ -1,14 +1,10 @@
 package com.Xconvert.jobs;
 
 import java.io.IOException;
-import java.util.Calendar;
 import java.util.Scanner;
 import java.util.regex.Pattern;
-
 import org.apache.log4j.Logger;
-
 import com.Xconvert.Main;
-
 
 public class Convert{
 	static Logger log = Logger.getLogger(
@@ -17,17 +13,18 @@ public class Convert{
 	protected int jobId;
 	protected String vsource;
 	protected String vdestination;
+	protected String thumbnail1;
 	protected int video_id;
 	
 	ProcessBuilder pb;
 	Process p =null;
 	
-	public Convert(int id, int vid, String src, String dest){
+	public Convert(int id, int vid, String src, String dest, String thumbnail){
 		this.vsource = src;
 		this.vdestination = dest;
 		this.jobId = id;
 		this.video_id = vid;
-	
+		this.thumbnail1 = thumbnail;
 	}
 	
 	public Boolean startConvert(){
@@ -83,12 +80,10 @@ public class Convert{
 	}
 	
 	
-	public String createThumbnail(String fldr){
+	public String createThumbnail(){
 		//ffmpeg -i video_2.mp4  -ss 00:00:14.435 -f image2 -vframes 1  -s 160x120  video_2xxx.png
 		 //creates nessesssary folders
-		int year = Calendar.getInstance().get(Calendar.YEAR);
-		int month = Calendar.getInstance().get(Calendar.MONTH);
-		
+
 		this.pb = new ProcessBuilder("ffmpeg",
 				                      "-i",
 				                      this.getVsource(),
@@ -100,7 +95,7 @@ public class Convert{
 				                      "1",
 				                      "-s",
 				                      "160x120",
-				                      fldr+this.getVideoId()+".png",
+				                      this.getThumbnail1(),
 				                      "-y");
 		 
 		 //copy the created thumbnail to public folder
@@ -114,7 +109,7 @@ public class Convert{
 			e.printStackTrace();
 		}
 		
-		 return fldr+this.getVideoId()+".png";
+		 return this.getThumbnail1();
 	}
 	
 	
@@ -153,6 +148,13 @@ public class Convert{
 	
 	public void setVideoId(int id){
 		this.video_id = id;
+	}
+	
+	public String getThumbnail1(){
+		return this.thumbnail1;
+	}
+	public void setThumnail1(String tmb){
+		this.thumbnail1 = tmb;
 	}
 
 }

@@ -168,14 +168,11 @@ class VideosForm extends Form{
 		$inputFilter = new InputFilter\InputFilter();
 		
 		$strfile =  ROOT_PATH.'/data/videos/'.date("Y").'/'.date("m");
-		$strfilePublic = ROOT_PATH.'/public/img/thumbnails/vids/'.date("Y").'/'.date("m");
 			
 			// check 
 		if (! file_exists ( $strfile ) && ! is_dir ( $strfile )) {
 			mkdir ( $strfile );
-			mkdir($strfilePublic);
-			chmod($strfile, 0777);
-			chmod($strfilePublic, 0777);
+			chmod($strfile, 0775);
 		} 
 	
 		// File Input

@@ -44,6 +44,7 @@ public class JobDaemon implements Job{
 		        int jobId = rs.getInt("job_id");
 		        String source = rs.getString("source");
 		        String destination = rs.getString("destination");
+		        String thumbnail1 = rs.getString("thumbnail1");
 		        Date dateCreated = rs.getDate("created");
 		        String status  = rs.getString("status");
 		        String command  = rs.getString("command");
@@ -59,36 +60,15 @@ public class JobDaemon implements Job{
 					
 					stmtUpdate.executeUpdate(updateQuery);
 
-					c = new Convert(jobId, video_id, source, destination);
+					c = new Convert(jobId, video_id, source, destination,thumbnail1);
 					Boolean convertionRes = c.startConvert();
                     
 		 			if (convertionRes) {
 						stmtUpdate
 								.executeUpdate("UPDATE  `edplayground`.`encodingJobs` SET  `status` =  'completed' WHERE  `encodingJobs`.`job_id` = "
 										+ jobId);
-						log.debug("Creating public folders....");
-						
-					
-						String monthString = new SimpleDateFormat("MM").format(new Date());
-						String yearString = new SimpleDateFormat("YYYY").format(new Date());
-						
-                        String folder = "../public/img/thumbnails/vids/"+yearString+"/"+monthString+"/";
-                       
-                        log.debug("Multiple directories will be created at "+folder);
-						File files = new File(folder);
-						if (!files.exists()) {
-							if (files.mkdirs()) {
-								log.debug("Multiple directories are created! "+folder);
-							
-							} else {
-								log.debug("Failed to create multiple directories!");
-							}
-						}
-						
 						log.debug("Creating thumbnail...."); 
-						String thumbnail = c.createThumbnail(folder);
-						
-						log.debug("Thumbnail Created...."+thumbnail); 
+						log.debug("Thumbnail Created...."+c.createThumbnail()); 
 					
 
 					}

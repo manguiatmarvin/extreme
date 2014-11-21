@@ -33,6 +33,7 @@ class AdminController extends AbstractActionController {
 				$video->desc = $data["desc"];
 				$video->video_path = $data["video-file"]["tmp_name"];
 				$video->category_id = $data['category_id'];
+				$video->thumbnail = $data["video-file"]["tmp_name"].".png";
 				$this->getVideosTable()->saveVideo($video);
 			  
 				$this->flashmessenger()->addErrorMessage("Video added successfully");

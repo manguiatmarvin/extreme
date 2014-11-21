@@ -47,12 +47,16 @@ $videos = $this->videos;
 												<th>options</th>
 											</tr>
 											<?php foreach ($videos as $v):?>
+											<?php //process thumbnail 
+                     $tmbnail = '/img/thumbnails/'.str_replace(ROOT_PATH."/data/", "", $v->thumbnail); 
+                    ?>
+                    
 											<tr>
 												<td><?php echo $v->id ?></td>
 												<td>
 												   <div class="">
 														<div class="thumbnail">
-															<a href="#"><img src="<?php echo $v->thumbnail;?>" width="100%" height="100%"
+															<a href="#"><img src="<?php echo $tmbnail;?>" width="100%" height="100%"
 																alt="<?php echo $v->title; ?>"></a>
 															<div class="runtime">
 																<span class="badge"><?php echo $v->runtime;?></span>

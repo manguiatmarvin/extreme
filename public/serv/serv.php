@@ -8,8 +8,6 @@ if($videoId==""){
 $content=file_get_contents("http://marvin.extreme.com/videos/getVideoJson/".$videoId);
 $data=json_decode($content);
 
-echo $data->result;
-exit;
 
 if($data->result=="failed"){
 exit;
