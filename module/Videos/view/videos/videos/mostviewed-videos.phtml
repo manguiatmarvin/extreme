@@ -85,9 +85,13 @@ function dateDiff($time1, $time2, $precision = 6) {
 					<div class="box-body">
 					
 					<?php foreach ($videos as $v):?>
+						 <?php //process thumbnail 
+                     $tmbnail = '/img/thumbnails/'.str_replace(ROOT_PATH."/data/", "", $v->thumbnail); 
+                    ?>   
+                    
 		              <div class="col-sm-6">
 							<div class="thumbnail">
-								<a href="<?php echo $this->url('videos',array('action'=>'play','id'=>$v->id))?>"><img src="<?php echo $v->thumbnail; ?>"
+								<a href="<?php echo $this->url('videos',array('action'=>'play','id'=>$v->id))?>"><img src="<?php echo $tmbnail; ?>"
 									width="100%" height="100%" alt="..."></a>
 								<div class="runtime">
 									<span class="badge"><?php echo $v->runtime;?></span>
