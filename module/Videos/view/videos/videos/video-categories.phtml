@@ -18,9 +18,12 @@ $videos = $this->categories;
 					<div class="box-body">
 					
 					<?php foreach ($videos as $v):?>
+						 <?php //process thumbnail 
+                     $tmbnail = '/img/thumbnails/'.str_replace(ROOT_PATH."/data/", "", $v->thumbnail); 
+                    ?>  
 		              <div class="col-sm-6">
 							<div class="thumbnail">
-								<a href="<?php echo  $this->url('videos',array('action'=>'videos-by-category','id'=>$v->cat_id))?>"><img src="<?php echo $v->thumbnail; ?>"
+								<a href="<?php echo  $this->url('videos',array('action'=>'videos-by-category','id'=>$v->cat_id))?>"><img src="<?php echo $tmbnail; ?>"
 									width="100%" height="100%" alt="..."></a>
 								<div class="runtime">
 									<span class="badge"> <?php echo $v->n_videos;?> <i class="fa fa-video-camera"></i></span>
