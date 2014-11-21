@@ -68,7 +68,17 @@ function dateDiff($time1, $time2, $precision = 6) {
 	//return implode(", ", $times);
 	return   $times[0];
 }
+function truncate($string,$length=100,$append="&hellip;") {
+	$string = trim($string);
 
+	if(strlen($string) > $length) {
+		$string = wordwrap($string, $length);
+		$string = explode("\n", $string, 2);
+		$string = $string[0] . $append;
+	}
+
+	return $string;
+}
 ?>
 <div class="row">
 	<!-- Left col -->
@@ -91,8 +101,8 @@ function dateDiff($time1, $time2, $precision = 6) {
 								<div class="runtime">
 									<span class="badge"><?php echo $v->runtime;?></span>
 								</div>
-								<h4><b><?php echo $v->title?></b></h4>
-									<?php echo $v->desc;?>
+								<h4><b><?php echo truncate($v->title,21)?></b></h4>
+									<?php echo truncate($v->desc,23);?>
 										<br/>
 									<?php $rate = number_format( $v->rate / 5 );?>
 									<b>Rate: </b><div class="basic" data-average="<?php echo $rate ?>" data-id="<?php $v->id ?>"></div>  <?php echo number_format($v->rate).'%'; ?>
