@@ -95,7 +95,7 @@ function truncate($string,$length=100,$append="&hellip;") {
 					
 					<?php foreach ($videos as $v):?>
 				    <?php //process thumbnail 
-                     $tmbnail = '/img/thumbnails/'.str_replace(ROOT_PATH."/data/", "", $video->thumbnail); 
+                     $tmbnail = '/img/thumbnails/'.str_replace(ROOT_PATH."/data/", "", $v->thumbnail); 
                     ?>   
                     
 		              <div class="col-sm-6">
