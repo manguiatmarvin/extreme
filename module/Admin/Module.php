@@ -8,6 +8,8 @@ use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 use Videos\Model\Videos;
 use Videos\Model\VideosTable;
+use Admin\Model\CategoryTable;
+use Admin\Model\Category;
 
 class Module implements AutoloaderProviderInterface, ConfigProviderInterface
 {
@@ -43,6 +45,18 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface
 							$resultSetPrototype = new ResultSet();
 							$resultSetPrototype->setArrayObjectPrototype(new Videos());
 							return new TableGateway('video', $dbAdapter, null, $resultSetPrototype);
+						},
+						'Admin\Model\CategoryTable' =>  function($sm) {
+							$tableGateway = $sm->get('CategoryTableGateway');
+							$table = new CategoryTable($tableGateway);
+							return $table;
+						},
+							
+						'CategoryTableGateway' => function ($sm) {
+							$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+							$resultSetPrototype = new ResultSet();
+							$resultSetPrototype->setArrayObjectPrototype(new Category());
+							return new TableGateway('category', $dbAdapter, null, $resultSetPrototype);
 						},
 				),
 		);

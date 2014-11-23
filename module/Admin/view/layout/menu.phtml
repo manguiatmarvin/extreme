@@ -1,3 +1,65 @@
+<?php if($this->editCategoryForm):?>
+  <?php
+	$form = $this->editCategoryForm;
+    $form->setAttribute('action', $this->url('admin', array('action' => 'edit-video-category',
+                                                            'id'=>$this->id)));
+    $form->prepare();
+  ?>
+  
+ <div class="well box-body">
+	<div class="form-group">
+  <?php echo $this->form()->openTag($form);	?>
+   <?php echo $this->formHidden($form->get('id')); ?>
+  		<div class="form-group">
+			<div class="input-group">
+    <?php echo $this->formRow($form->get('category_name'));?>
+   </div>
+		</div>
+		
+		<div class="form-group">
+			<div class="input-group">
+   <?php echo $this->formSubmit($form->get('submit'));?>
+   </div>
+		</div>
+	<?php echo $this->form()->closeTag();?>
+	
+
+	</div>
+</div>
+<?php endif;?>
+
+<?php if ($this->addVideoCategoryForm):?>
+  <?php
+	$form = $this->addVideoCategoryForm;
+	$form->setAttribute ( 'action', $this->url ( 'admin', array (
+			'action' => 'manage-video-category' 
+	) ) );
+	$form->prepare ();
+	?>
+
+<div class="well box-body">
+	<div class="form-group">
+  <?php echo $this->form()->openTag($form);	?>
+   <?php echo $this->formHidden($form->get('id')); ?>
+  		<div class="form-group">
+			<div class="input-group">
+    <?php echo $this->formRow($form->get('category_name'));?>
+   </div>
+		</div>
+		
+		<div class="form-group">
+			<div class="input-group">
+   <?php echo $this->formSubmit($form->get('submit'));?>
+   </div>
+		</div>
+	<?php echo $this->form()->closeTag();?>
+	
+
+	</div>
+</div>
+<?php endif;?>
+
+
 <?php if($this->addVideoForm):?>
   <?php
 	$form = $this->addVideoForm;
@@ -32,8 +94,8 @@
     <?php echo $this->formRow($form->get('publish'));?>
    </div>
 		</div>
-		
-				<div class="form-group">
+
+		<div class="form-group">
 			<div class="input-group">
     <?php echo $this->formRow($form->get('video-file'));?>
    </div>
@@ -68,7 +130,9 @@
 			class="video-js vjs-default-skin vjs-big-play-centered" controls
 			preload="auto" width="auto" height="auto"
 			poster="<?php echo $video->thumbnail; ?>" data-setup="{}">
-			<source src="<?php echo 'http://'.$_SERVER['SERVER_ADDR']."/serv/serv.php?id=".$video->id ?>" type='video/mp4'>
+			<source
+				src="<?php echo 'http://'.$_SERVER['SERVER_ADDR']."/serv/serv.php?id=".$video->id ?>"
+				type='video/mp4'>
 			<p class="vjs-no-js">
 				To view this video please enable JavaScript, and consider upgrading
 				to a web browser that <a
@@ -130,8 +194,8 @@
     <?php echo $this->formRow($form->get('publish'));?>
    </div>
 		</div>
-		
-				<div class="form-group">
+
+		<div class="form-group">
 			<div class="input-group">
     <?php echo $this->formRow($form->get('thumbnail'));?>
    </div>

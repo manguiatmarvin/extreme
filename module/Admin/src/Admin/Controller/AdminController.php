@@ -7,13 +7,111 @@ use Videos\Module;
 use Videos\Form\VideosForm;
 use Videos\Controller\VideosController;
 use Videos\Model\Videos;
+use Admin\Form\CategoryForm;
+use Admin\Model\Category;
 
 class AdminController extends AbstractActionController {
 	protected $videosTable;
+	protected  $categoryTable;
 	
 	public function indexAction() {
 		
 	}
+	
+	public function ManageVideoCategoryAction(){
+		
+		try{
+			$category = $this->getCategoryTable()->getAllCategory();
+			
+		}catch (\Exception $ex) {
+			$this->flashmessenger()->addErrorMessage("".$ex->getMessage());
+			return $this->redirect()->toRoute('admin', array(
+					'action' => 'manage-video-category'
+			));
+		}
+	
+		
+		$form = new CategoryForm();
+		$form->get('submit')->setValue('Add');
+		$form->get('id')->setValue(0);
+		
+		$request = $this->getRequest();
+		if ($request->isPost()) {		
+			$category = new Category();
+			$form->setInputFilter($category->getInputFilter());
+			$form->setData($request->getPost());
+		
+			if ($form->isValid()) {
+				$category->exchangeArray($form->getData());
+				$this->getCategoryTable()->saveCategory($category);
+				return $this->redirect()->toRoute('admin',array('action'=>'manage-video-category'));
+				
+			}else{
+				echo "Form inValid";
+				exit;
+			}
+		}
+		
+		
+		return new ViewModel(array('addVideoCategoryForm'=>$form,
+				                   'categories'=>$category));
+	}
+	
+	
+	public function EditVideoCategoryAction(){
+		$id = (int) $this->params()->fromRoute('id', 0);
+		if (!$id) {
+			return $this->redirect()->toRoute('admin', array(
+					'action' => 'manage-video-category'
+			));
+		}
+		
+		try {
+			$category = $this->getCategoryTable()->getCategory($id);
+			$categoryList = $this->getCategoryTable()->getAllCategory();
+		}
+		catch (\Exception $ex) {
+			return $this->redirect()->toRoute('admin', array(
+					'action' => 'manage-video-category'
+			));
+		}
+		
+		$form  = new CategoryForm();
+		$form->bind($category);
+		$form->get('submit')->setAttribute('value', 'Edit');
+		
+		$request = $this->getRequest();
+		if ($request->isPost()) {
+			$form->setInputFilter($category->getInputFilter());
+			$form->setData($request->getPost());
+		
+			if ($form->isValid()) {
+		        $this->getCategoryTable()->saveCategory($category);
+				return $this->redirect()->toRoute('admin', array('action'=>'manage-video-category'
+				                                                  ));
+				exit;
+				
+			}else{
+				echo "Form is invalid";
+				exit;
+			}
+		}
+		
+		return array(
+				'id' => $id,
+				'editCategoryForm' => $form,
+				'categoryList' => $categoryList,
+		);
+		
+	
+	}
+	
+	public function DeleteVideoCategoryAction(){
+
+		return new ViewModel();
+	}
+	
+	
 	
 	public function ManageVideosAction() {
 		$form  = new VideosForm();
@@ -125,6 +223,15 @@ class AdminController extends AbstractActionController {
 			$this->videosTable = $sm->get('Videos\Model\VideosTable');
 		}
 		return $this->videosTable;
+	}
+	
+	public function getCategoryTable(){
+	
+		if (!$this->categoryTable) {
+			$sm = $this->getServiceLocator();
+			$this->categoryTable = $sm->get('Admin\Model\CategoryTable');
+		}
+		return $this->categoryTable;
 	}
 	
 }
