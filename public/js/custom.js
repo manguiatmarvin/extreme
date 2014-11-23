@@ -21,14 +21,6 @@ $(function() {
 	}
 	
 	
-	
-	$( ".datepicker" ).datepicker({
-	      changeMonth: true,
-	      changeYear: true,
-	      dateFormat:'mm/dd/yy'
-	      
-	 });
-	
 	$('#image-file').addClass( "btn btn-primary" );
 	
 	$('#vplay-add-likes').click(function(e) {
