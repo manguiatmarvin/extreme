@@ -41,6 +41,7 @@ return array (
 				'login/process',
 				'admin-login',
 				'auth',
-				'paginator'
+				'paginator',
+				'manage-video-category',
 		),		 
 );

@@ -15,6 +15,8 @@ use Zend\Authentication\AuthenticationService;
 use Zend\Authentication\Adapter\DbTable as DbTableAuthAdapter;
 use Zend\Permissions\Acl\Acl;
 
+
+
 class Module{
 	
     public function onBootstrap(MvcEvent $e)
@@ -133,7 +135,8 @@ class Module{
     						$resultSetPrototype = new ResultSet();
     						$resultSetPrototype->setArrayObjectPrototype(new Videos());
     						return new TableGateway('video', $dbAdapter, null, $resultSetPrototype);
-    					},
+    					}
+    				
     			),
     	);
     }

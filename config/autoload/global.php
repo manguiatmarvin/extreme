@@ -2,7 +2,7 @@
 return array (
 		'db' => array (
 				'driver' => 'Pdo',
-				'dsn' => 'mysql:dbname=edplayground;host=localhost', 
+				'dsn' => 'mysql:dbname=extreme;host=localhost', 
 				'driver_options' => array (
 						PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\'' 
 				) 
@@ -110,6 +110,13 @@ return array (
 												'route' => 'admin',
 												'action' => 'manage-users',
 												'resource' => 'manage-users',
+												'show_in_menu' => true
+										),
+										array (
+												'label' => 'Manage Video Categories',
+												'route' => 'admin',
+												'action' => 'manage-video-category',
+												'resource' => 'manage-video-category',
 												'show_in_menu' => true
 										),
 											array (
