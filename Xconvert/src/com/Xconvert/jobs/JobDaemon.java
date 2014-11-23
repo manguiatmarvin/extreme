@@ -32,7 +32,7 @@ public class JobDaemon implements Job{
 	      try {
 	    	 
 	    	Class.forName(myDriver);
-			java.sql.Connection conn = DriverManager.getConnection(myUrl, "root", "secret123");
+			java.sql.Connection conn = DriverManager.getConnection(myUrl, "root", "secretpassword");
 			
 			stmtSelect = conn.createStatement() ;
 			stmtUpdate = conn.createStatement() ;
