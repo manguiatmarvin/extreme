@@ -37,7 +37,7 @@ class VideosTable {
 	
 	public function saveVideo(Videos $video){
 		
-
+		$id = (int) $video->id;
 		$data = array(
 				'title' => $video->title,
 				'desc'  => $video->desc,
@@ -45,13 +45,14 @@ class VideosTable {
 				'category_id'=>$video->category_id,
 				'embed_code'  => $video->embed_code,
 				'publish'  => $video->publish,
+				'uploaded' => ($video->uploaded!=null) ? $video->uploaded: date("Y-m-d H:i:s"),
 				'views' => $video->views,
 				'video_src'=>$video->video_src,
 				'video_path'=>$video->video_path,
 				'thumbnail'=>$video->thumbnail,
 		);
 	
-		$id = (int) $video->id;
+		
 		if (!$id) {
 			//add new 
 			$this->tableGateway->insert($data);
