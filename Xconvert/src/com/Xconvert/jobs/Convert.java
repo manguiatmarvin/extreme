@@ -65,15 +65,25 @@ public class Convert{
 
           // Find time as long as possible.
           Pattern timePattern = Pattern.compile("(?<=time=)[\\d:.]*");
+        
           String match;
           String[] matchSplit;
+          double progress;
+          double temProgress = 0;
+         
           while (null != (match = sc.findWithinHorizon(timePattern, 0))) {
               matchSplit = match.split(":");
-              double progress = Integer.parseInt(matchSplit[0]) * 3600 +
+                 progress = Integer.parseInt(matchSplit[0]) * 3600 +
                   Integer.parseInt(matchSplit[1]) * 60 +
                   Double.parseDouble(matchSplit[2]);
-              progress = progress / totalSecs;
-              log.debug(Math.round(progress * 100)+" % Completed");
+              
+              progress =  Math.round ((progress / totalSecs) * 100);
+              
+              if(temProgress!= progress){
+            	   log.debug(Math.round(progress));  
+            	   temProgress = progress;
+              }
+           
           }
           
        return true;   
