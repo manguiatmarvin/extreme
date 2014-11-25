@@ -60,8 +60,8 @@
   border-bottom: 1px solid #333;
 }
 .skin-x .sidebar > .sidebar-menu > li {
-  border-top: 1px solid #36435C;
-  border-bottom: 0px solid #252931;
+ border-top: 1px solid #383838;
+border-bottom: 0px solid #383838;
 }
 .skin-x .sidebar > .sidebar-menu > li:first-of-type {
   border-top: 1px solid #252931;

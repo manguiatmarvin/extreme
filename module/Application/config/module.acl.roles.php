@@ -21,6 +21,7 @@ return array (
 				'success',
 				'admin-login',
 				'manage-videos',
+				'manage-videos/',
 				'manage-album',
 				'manage-users',
 				'logout',
