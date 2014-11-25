@@ -58,7 +58,7 @@ class VideosTable {
 			$this->tableGateway->insert($data);
 			
 			//chmod the file
-			chmod($video->video_path, 0775);
+			chmod($video->video_path, 0777);
 			
 			$src = $video->video_path;
 			$dest = $video->video_path.".mp4";
@@ -67,7 +67,7 @@ class VideosTable {
 			
 			if (! file_exists ( $strfile ) && ! is_dir ( $strfile )) {
 				mkdir ( $strfile );
-				chmod($strfile, 0775);
+				chmod($strfile, 0777);
 			}
 			
 			$dbAdapter = $this->tableGateway->getAdapter();
