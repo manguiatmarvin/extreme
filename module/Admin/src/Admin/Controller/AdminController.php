@@ -29,7 +29,6 @@ class AdminController extends AbstractActionController {
 					'action' => 'manage-video-category'
 			));
 		}
-	
 		
 		$form = new CategoryForm();
 		$form->get('submit')->setValue('Add');
@@ -112,7 +111,6 @@ class AdminController extends AbstractActionController {
 	}
 	
 	
-	
 	public function ManageVideosAction() {
 		$form  = new VideosForm();
 		$form->setOptionSelect($this->getVideosTable()->getCategoryArray());
@@ -149,8 +147,12 @@ class AdminController extends AbstractActionController {
 			}
 		}
 	
-		$videos = $this->getVideosTable()->getAllVideos();
-		return new ViewModel(array('videos'=>$videos,
+		$videopaginator = $this->getVideosTable()->getAllVideos();
+		$videopaginator->setCurrentPageNumber((int)$this->params()->fromQuery('page', 1));
+		// set the number of items per page to 10
+		$videopaginator->setItemCountPerPage(4);
+		
+		return new ViewModel(array('videos'=>$videopaginator,
 	                              'addVideoForm' => $form));
 	}
 	
