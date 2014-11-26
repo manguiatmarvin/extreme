@@ -35,7 +35,7 @@ echo $this->render('flashmessenger/layout') ?>
 												<td>
 												   <div class="">
 														<div class="thumbnail">
-															<a href="#"><img src="<?php echo $tmbnail;?>" width="100%" height="100%"
+															<a href="<?php echo $this->url('admin',array('action'=>'admin-edit-video','id'=>$v->id));?>"><img src="<?php echo $tmbnail;?>" width="100%" height="100%"
 																alt="<?php echo $v->title; ?>"></a>
 															<div class="runtime">
 																<span class="badge"><?php echo $v->runtime;?></span>
