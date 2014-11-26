@@ -13,10 +13,11 @@ return array(
              'videos' => array(
                  'type'    => 'segment',
                  'options' => array(
-                     'route'    => '/videos[/][:action][/:id]',
+                     'route'    => '/videos[/][:action][/:id][/page/:page]',
                      'constraints' => array(
                          'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                          'id'     => '[0-9]+',
+                     	 'page' => '[0-9]+',
                      ),
                      'defaults' => array(
                          'controller' => 'Videos\Controller\Videos',
