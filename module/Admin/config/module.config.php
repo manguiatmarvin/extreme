@@ -28,7 +28,7 @@ return array(
          		'paginator' => array(
          				'type' => 'segment',
          				'options' => array(
-         						'route' => '/manage-videos/[page/:page]',
+         						'route' => '/manage-videos[page/:page]',
          						'defaults' => array(
          								'page' => 1,
          						),
