@@ -98,7 +98,7 @@ public class Convert{
 				                      "-i",
 				                      this.getVsource(),
 				                      "-ss",
-				                      "00:00:14.435",
+				                      "00:00:20.435",
 				                      "-f",
 				                      "image2",
 				                      "-vframes",
