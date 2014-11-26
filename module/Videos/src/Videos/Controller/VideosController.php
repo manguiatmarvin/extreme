@@ -10,13 +10,13 @@ class VideosController extends AbstractActionController {
 	protected $videosTable;
 	
 	public function indexAction() {
-     $paginator = $this->getVideosTable()->getNewestVideos();
+     $videosPaginator = $this->getVideosTable()->getNewestVideos();
      // set the current page to what has been passed in query string, or to 1 if none set
-     $paginator->setCurrentPageNumber($this->params()->fromRoute('page', 0));
+     $videosPaginator->setCurrentPageNumber($this->params()->fromRoute('page', 0));
      // set the number of items per page to 10
-     $paginator->setItemCountPerPage(2);
+     $videosPaginator->setItemCountPerPage(15);
      
-     return new ViewModel(array('videos'=>$paginator,));
+     return new ViewModel(array('videos'=>$videosPaginator,));
 	}
 
 	public function playAction(){
