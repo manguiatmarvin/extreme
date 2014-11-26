@@ -51,6 +51,26 @@ echo $this->render('flashmessenger/layout') ?>
 											</tr>
 											<?php endforeach;?>										
 										</table>
+										
+										
+										
+																										<!-- pagination -->
+						<?php
+// add at the end of the file after the table
+echo $this->paginationControl (
+		// the paginator object
+		$videos,
+		// the scrolling style; see http://zf2.readthedocs.org/en/release-2.1.4/modules/zend.paginator.usage.html#rendering-pages-with-view-scripts
+		'Jumping',
+		// the partial to use to render the control
+		array (
+				'partial/admin-video-paginator.phtml',
+				'admin'
+		),
+		// the route to link to when a user clicks a control link
+		array (
+				'route' => 'paginator',$this->videos
+		) ); ?>
 					</div>
 
 
