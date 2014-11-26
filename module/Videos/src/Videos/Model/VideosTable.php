@@ -295,8 +295,9 @@ class VideosTable {
 		              array('cat_id'=>'id',
 		              		'category_name',
 		              		'n_videos'=>new Expression('COUNT(video.category_id)')),
-		              Select::JOIN_LEFT)->group('category.category_name');;
+		              Select::JOIN_LEFT)->group('category.category_name');
 		
+		$select->where(array('publish'=>1));
 		
 		$paginatorAdapter = new DbSelect(
 				// our configured select object
