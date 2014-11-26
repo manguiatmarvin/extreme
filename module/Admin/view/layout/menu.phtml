@@ -125,11 +125,13 @@
 	<label>Preview</label>
 	<section id="player"
 		style="width: 100%; height: auto; float: left; padding: 5px">
-
+	 <?php //process thumbnail 
+                     $tmbnail = '/img/thumbnails/'.str_replace(ROOT_PATH."/data/", "", $video->thumbnail); 
+     ?>  
 		<video id="<?php echo  $video->id?>"
 			class="video-js vjs-default-skin vjs-big-play-centered" controls
 			preload="auto" width="auto" height="auto"
-			poster="<?php echo $video->thumbnail; ?>" data-setup="{}">
+			poster="<?php echo $tmbnail; ?>" data-setup="{}">
 			<source
 				src="<?php echo 'http://'.$_SERVER['SERVER_ADDR']."/serv/serv.php?id=".$video->id ?>"
 				type='video/mp4'>
