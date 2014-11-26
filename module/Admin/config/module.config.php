@@ -13,28 +13,18 @@ return array(
              'admin' => array(
                  'type'    => 'segment',
                  'options' => array(
-                     'route'    => '/admin[/][:action][/:id]',
+                     'route'    => '/admin[/][:action][/:id][/page/:page]',
                      'constraints' => array(
                          'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                          'id'     => '[0-9]+',
+                     	 'page' => '[0-9]+',
                      ),
                      'defaults' => array(
                          'controller' => 'Admin\Controller\Admin',
                          'action'     => 'index',
                      ),
                  ),
-             ),
-         		
-         		'paginator' => array(
-         				'type' => 'segment',
-         				'options' => array(
-         						'route' => '/manage-videos[page/:page]',
-         						'defaults' => array(
-         								'page' => 1,
-         						),
-         				),
-         		),
-         		
+             ),	
   
          ),
      ),

@@ -148,9 +148,11 @@ class AdminController extends AbstractActionController {
 		}
 	
 		$videopaginator = $this->getVideosTable()->getAllVideos();
-		$videopaginator->setCurrentPageNumber((int)$this->params()->fromQuery('page', 1));
+		$videopaginator->setCurrentPageNumber($this->params()->fromRoute('page', 0));
 		// set the number of items per page to 10
 		$videopaginator->setItemCountPerPage(4);
+		
+
 		
 		return new ViewModel(array('videos'=>$videopaginator,
 	                              'addVideoForm' => $form));
@@ -199,8 +201,9 @@ class AdminController extends AbstractActionController {
 		}
 		
 		
+	
 		$videopaginator = $this->getVideosTable()->getAllVideos();
-		$videopaginator->setCurrentPageNumber((int)$this->params()->fromQuery('page', 1));
+		$videopaginator->setCurrentPageNumber($this->params()->fromRoute('page', 0));
 		// set the number of items per page to 10
 		$videopaginator->setItemCountPerPage(4);
 		
