@@ -76,7 +76,7 @@ class VideosForm extends Form{
 				),
 				'attributes' => array(
 						'class'  => 'form-control',
-						'placeholder'=>'Enter runtime',
+						'placeholder'=>'Enter views',
 				),
 		));
 
@@ -89,7 +89,7 @@ class VideosForm extends Form{
 				),
 				'attributes' => array(
 						'class'  => 'form-control',
-						'placeholder'=>'Enter runtime',
+						'placeholder'=>'Enter video_src',
 				),
 		));
 		
@@ -102,7 +102,7 @@ class VideosForm extends Form{
 				),
 				'attributes' => array(
 						'class'  => 'form-control',
-						'placeholder'=>'Enter runtime',
+						'placeholder'=>'Enter video path',
 				),
 		));
 		
@@ -124,7 +124,7 @@ class VideosForm extends Form{
 				'name' => 'publish',
 				'type' => 'Checkbox',
 				'options' => array(
-						'label' => 'live',
+						'label' => 'live ?',
 				),
 				'attributes' => array(
 						'class'  => 'form-control',
@@ -186,9 +186,6 @@ class VideosForm extends Form{
 				)
 		);
 		$inputFilter->add($fileInput);
-		
-		
-		
 		
 	
 		$this->setInputFilter($inputFilter);
