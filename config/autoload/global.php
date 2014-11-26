@@ -2,7 +2,7 @@
 return array (
 		'db' => array (
 				'driver' => 'Pdo',
-				'dsn' => 'mysql:dbname=extreme;host=localhost', 
+				'dsn' => 'mysql:dbname=edplayground;host=localhost', 
 				'driver_options' => array (
 						PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\'' 
 				) 
@@ -80,7 +80,7 @@ return array (
 						array (
 								'label' => 'Admin',
 								'route' => 'admin',
-								'class' => ' fa-camera',
+								'class' => ' fa-cogs',
 								'resource'=> 'admin',
 								'pages' => array (
 										array (
