@@ -61,13 +61,18 @@ class VideosController extends AbstractActionController {
 	 	// if it cannot be found, in which case go to the index page.
 	 	try {
 	 		
-	 		$videos = $this->getVideosTable()->getVideosByCategory($id);
+	 		$relatedVideos = $this->getVideosTable()->getVideosByCategory($id);
 	 	}
 	 	catch (\Exception $ex) {
 	 		//change this to 404
 	 		return $this->redirect()->toRoute('video-categories');
 	 	}
 	 	
+	 	
+	 	// set the current page to what has been passed in query string, or to 1 if none set
+	 	$relatedVideos->setCurrentPageNumber($this->params()->fromRoute('page', 0));
+	 	// set the number of items per page to 10
+	 	$relatedVideos->setItemCountPerPage(15);
 	 	return new ViewModel(array('videos'=>$videos));
 	}
 	
@@ -75,8 +80,14 @@ class VideosController extends AbstractActionController {
 	 * Display Top rated Videos
 	 */
 	public function TopRatedVideosAction(){
-
-		return new ViewModel(array('videos'=>$this->getVideosTable()->getTopRatedVideos()));
+		
+		$videos = $this->getVideosTable()->getTopRatedVideos();
+		// set the current page to what has been passed in query string, or to 1 if none set
+		$videos->setCurrentPageNumber($this->params()->fromRoute('page', 0));
+		// set the number of items per page to 10
+		$videos->setItemCountPerPage(15);
+		
+		return new ViewModel(array('videos'=>$videos));
 	}
 	
     public function getVideoJsonAction(){
@@ -96,6 +107,8 @@ class VideosController extends AbstractActionController {
     		//change this to 404
     		return new JsonModel(array('result'=>'failed'));
     	}
+    	
+    	
     	
     	$result = new JsonModel(array('result'=>'success',
     	                              'video_path'=>$videoToplay->video_path));
@@ -144,7 +157,13 @@ class VideosController extends AbstractActionController {
     
     
     public function MostViewedVideosAction(){
-    	    return new ViewModel(array('videos'=>$this->getVideosTable()->getMostViewedVideos(),));
+    	$mostViewedVideos = $this->getVideosTable()->getMostViewedVideos();
+    	// set the current page to what has been passed in query string, or to 1 if none set
+    	$mostViewedVideos->setCurrentPageNumber($this->params()->fromRoute('page', 0));
+    	// set the number of items per page to 10
+    	$mostViewedVideos->setItemCountPerPage(15);
+    	
+       return new ViewModel(array('videos'=>$mostViewedVideos,));
     }
     
     public function VideoCategoriesAction(){
