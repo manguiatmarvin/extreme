@@ -40,6 +40,11 @@ class VideosController extends AbstractActionController {
 			return $this->redirect()->toRoute('videos');
 		}
 		
+		// set the current page to what has been passed in query string, or to 1 if none set
+		$relatedVideos->setCurrentPageNumber($this->params()->fromRoute('page', 0));
+		// set the number of items per page to 10
+		$relatedVideos->setItemCountPerPage(15);
+		
 		return new ViewModel(array('playVideo'=>$videoToplay,
 		                           'relatedVideos'=>$relatedVideos));
 	}
