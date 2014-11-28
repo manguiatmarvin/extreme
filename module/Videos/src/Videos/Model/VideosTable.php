@@ -358,10 +358,13 @@ class VideosTable {
 	
 	
 	public function getRelatedVideos($videoTitle){
-		$videoTitle = '%'.$videoTitle.'%';
+		$objTitle = explode(" ",$videoTitle);
 		$select = new Select('video');
 		$select->where(array('publish'=>1));
-		$select->where->like('title',$videoTitle);
+		foreach ($objTitle as $title){
+			$select->where->like('title',$title);
+		}
+		
 		$select->order(array('uploaded'=>'ACS'));
 	
 	
