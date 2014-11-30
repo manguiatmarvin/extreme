@@ -40,7 +40,7 @@ public class Convert{
 				           "-c:a",
 				           "aac",
 				           "-b:a",
-				           "160k",
+				           "32k",
 				           this.getVdestination(),
 				           "-y");
 		 
@@ -88,6 +88,7 @@ public class Convert{
            
           }
           
+          sc.close();
        return true;   
 	}
 	

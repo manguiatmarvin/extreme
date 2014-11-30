@@ -4,13 +4,11 @@ import java.io.File;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.apache.log4j.Logger;
-import java.text.SimpleDateFormat;
 import com.Xconvert.Main;
 
 public class JobDaemon implements Job {
@@ -32,7 +30,7 @@ public class JobDaemon implements Job {
 
 			Class.forName(myDriver);
 			java.sql.Connection conn = DriverManager.getConnection(myUrl,
-					"root", "secretpassword");
+					"root", "secret");
 
 			stmtSelect = conn.createStatement();
 			stmtUpdate = conn.createStatement();
@@ -45,9 +43,7 @@ public class JobDaemon implements Job {
 				String source = rs.getString("source");
 				String destination = rs.getString("destination");
 				String thumbnail1 = rs.getString("thumbnail1");
-				Date dateCreated = rs.getDate("created");
 				String status = rs.getString("status");
-				String command = rs.getString("command");
 				int video_id = rs.getInt("video_id");
 
 				log.info("Found pending job " + jobId);
