@@ -35,8 +35,10 @@ public class Convert{
 				           "libx264",
 				           "-s",
 				           "320x240",
+				           "-strict",
+				           "experimental",
 				           "-c:a",
-				           "libmp3lame",
+				           "aac",
 				           "-b:a",
 				           "160k",
 				           this.getVdestination(),
@@ -106,7 +108,8 @@ public class Convert{
 				                      "-s",
 				                      "160x120",
 				                      this.getThumbnail1(),
-				                      "-y");
+				                      "-y",
+				                      "&");
 		 
 		 //copy the created thumbnail to public folder
 		 
