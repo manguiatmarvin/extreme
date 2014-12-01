@@ -3,19 +3,19 @@
     <!--this file was created by Eclipse Runnable JAR Export Wizard-->
     <!--ANT 1.7 is required                                        -->
     <target name="create_run_jar">
-        <jar destfile="/home/projects/extreme/Xconvert.jar" filesetmanifest="mergewithoutmain">
+        <jar destfile="Xconvert.jar" filesetmanifest="mergewithoutmain">
             <manifest>
                 <attribute name="Main-Class" value="com.Xconvert.Main"/>
                 <attribute name="Class-Path" value="."/>
             </manifest>
-            <fileset dir="/home/projects/extreme/Xconvert/bin"/>
-            <zipfileset excludes="META-INF/*.SF" src="/home/projects/extreme/Xconvert/lib/c3p0-0.9.1.1.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="/home/projects/extreme/Xconvert/lib/log4j-1.2.16.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="/home/projects/extreme/Xconvert/lib/quartz-2.2.1.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="/home/projects/extreme/Xconvert/lib/quartz-jobs-2.2.1.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="/home/projects/extreme/Xconvert/lib/slf4j-api-1.6.6.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="/home/projects/extreme/Xconvert/lib/slf4j-log4j12-1.6.6.jar"/>
-            <zipfileset excludes="META-INF/*.SF" src="/home/projects/extreme/Xconvert/lib/mysql-connector-java-5.1.34-bin.jar"/>
+            <fileset dir="Xconvert/bin"/>
+            <zipfileset excludes="META-INF/*.SF" src="Xconvert/lib/c3p0-0.9.1.1.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="Xconvert/lib/log4j-1.2.16.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="Xconvert/lib/quartz-2.2.1.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="Xconvert/lib/quartz-jobs-2.2.1.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="Xconvert/lib/slf4j-api-1.6.6.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="Xconvert/lib/slf4j-log4j12-1.6.6.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="Xconvert/lib/mysql-connector-java-5.1.34-bin.jar"/>
         </jar>
     </target>
 </project>

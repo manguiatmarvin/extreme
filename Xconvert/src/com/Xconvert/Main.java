@@ -36,7 +36,7 @@ public class Main {
 					.withIdentity("trigger1", "group1")
 					.startNow()
 					.withSchedule(
-							simpleSchedule().withIntervalInSeconds(6)
+							simpleSchedule().withIntervalInSeconds(60)
 									.repeatForever()).build();
 
 			// Tell quartz to schedule the job using our trigger
