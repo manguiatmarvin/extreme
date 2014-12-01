@@ -1,87 +1,58 @@
 package com.Xconvert.jobs;
 
 import java.io.File;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.List;
 
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.apache.log4j.Logger;
+
 import com.Xconvert.Main;
+import com.Xconvert.models.EncodingJobs;
+import com.Xconvert.server.JobsDAO;
 
 public class JobDaemon implements Job {
-
 	static Logger log = Logger.getLogger(Main.class.getName());
-
+	JobsDAO jd;
+	Convert converter;
 	@Override
 	public void execute(JobExecutionContext jec) throws JobExecutionException {
+		jd = new JobsDAO();
 		// TODO Auto-generated method stub
-		log.info("Checking database for pending jobs");
+		log.info("JobDaemon executed.." + jec.getFireInstanceId());
 
-		String myDriver = "com.mysql.jdbc.Driver";
-		String myUrl = "jdbc:mysql://localhost/edplayground";
-		java.sql.Statement stmtSelect;
-		java.sql.Statement stmtUpdate;
-		ResultSet rs;
-		Convert c;
-		try {
+		log.info("Getting the latest 3 pending jobs ...");
 
-			Class.forName(myDriver);
-			java.sql.Connection conn = DriverManager.getConnection(myUrl,
-					"root", "secret");
+		List<EncodingJobs> jobs = jd.getLatestPendingJobs(3);
 
-			stmtSelect = conn.createStatement();
-			stmtUpdate = conn.createStatement();
+		if (jobs.size() > 0) {
+			log.info("Found " + jobs.size() + " pending job(s)");
+		} else {
+			log.info("No pending job ...");
+		}
 
-			String selectQuery = "Select * from encodingJobs where status = 'pending' limit 3";
-			rs = stmtSelect.executeQuery(selectQuery);
+		for (EncodingJobs job : jobs) {
+			jd.UpdatePendingJob(job.getJob_id(), "proccessing");
+			converter = new Convert(job.getJob_id(), job.getVideo_id(),
+					job.getSource(), job.getDestination(), job.getThumbnail1());
+			log.info("Convertion started...");
+			Boolean convertRes = converter.startConvert();
 
-			while (rs.next()) {
-				int jobId = rs.getInt("job_id");
-				String source = rs.getString("source");
-				String destination = rs.getString("destination");
-				String thumbnail1 = rs.getString("thumbnail1");
-				String status = rs.getString("status");
-				int video_id = rs.getInt("video_id");
+			if (convertRes) {
+				log.info("Convertion Finished.");
+				log.info("Creating thumbnail....");
+				String thumbnailPath = converter.createThumbnail();
+				log.info("Creating thumbnail....Done." + thumbnailPath);
+				jd.UpdatePendingJob(job.getJob_id(), "completed");
+				log.info("deleteting original file");
 
-				log.info("Found pending job " + jobId);
-
-				if (status.equalsIgnoreCase("pending")) {
-					String updateQuery = "UPDATE  `edplayground`.`encodingJobs` SET  `status` =  'processing' WHERE  `encodingJobs`.`job_id` = "
-							+ jobId;
-					log.debug(updateQuery);
-
-					stmtUpdate.executeUpdate(updateQuery);
-
-					c = new Convert(jobId, video_id, source, destination,
-							thumbnail1);
-					Boolean convertionRes = c.startConvert();
-
-					if (convertionRes) {
-						stmtUpdate
-								.executeUpdate("UPDATE  `edplayground`.`encodingJobs` SET  `status` =  'completed' WHERE  `encodingJobs`.`job_id` = "
-										+ jobId);
-
-						log.debug("Creating thumbnail....");
-						log.debug("Thumbnail Created...." + c.createThumbnail());
-						log.debug("Deleting original file...");
-						new File(source).delete();
-					}
-
+				File f = new File(job.getSource());
+				if (f.exists() && !f.isDirectory()) {
+					f.delete();
+					log.info("deleteting original file. Done");
 				}
-
 			}
-			stmtSelect.close();
-			log.debug("closing connection...");
-
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 
 	}
